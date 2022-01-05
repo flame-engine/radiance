@@ -6,6 +6,9 @@ homepage: https://github.com/flame-engine/radiance
 environment:
   sdk: '>=2.14.0 <3.0.0'
 
+dependencies:
+  vector_math: '>=2.1.0 <3.0.0'
+
 dev_dependencies:
   flutter:
     sdk: flutter
