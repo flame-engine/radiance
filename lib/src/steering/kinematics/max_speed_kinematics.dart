@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:vector_math/vector_math_64.dart';
@@ -11,10 +10,9 @@ import '../kinematics.dart';
 ///
 class MaxSpeedKinematics extends Kinematics {
   MaxSpeedKinematics(this.maxSpeed)
-    : assert(maxSpeed > 0, 'maxSpeed must be positive');
+      : assert(maxSpeed > 0, 'maxSpeed must be positive');
 
   double maxSpeed;
-
 
   void setBearing(double angle) {
     own.velocity.x = maxSpeed * cos(angle);

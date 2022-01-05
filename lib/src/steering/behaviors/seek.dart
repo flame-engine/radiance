@@ -1,4 +1,3 @@
-
 import 'package:vector_math/vector_math_64.dart';
 
 import '../behavior.dart';
@@ -25,14 +24,12 @@ abstract class Seek<L extends Kinematics> extends Behavior {
     );
   }
 
-  Seek._(Vector2 point)
-    : _target = point;
+  Seek._(Vector2 point) : _target = point;
 
   Vector2 _target;
 
   double arrivalEpsilon = 1e-5;
 }
-
 
 class _SeekAtMaxSpeed extends Seek<MaxSpeedKinematics> {
   _SeekAtMaxSpeed(Vector2 point) : super._(point);

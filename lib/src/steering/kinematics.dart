@@ -1,4 +1,3 @@
-
 import 'steerable.dart';
 
 /// [Kinematics] class describes laws of motion and constraints on the movements
