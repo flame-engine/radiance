@@ -1,5 +1,6 @@
 import 'package:vector_math/vector_math_64.dart';
 
+import '../behaviors/seek.dart';
 import '../kinematics.dart';
 
 class MaxAccelerationKinematics extends Kinematics {
@@ -23,4 +24,7 @@ class MaxAccelerationKinematics extends Kinematics {
       own.velocity.scale(maxSpeed / v);
     }
   }
+
+  @override
+  Seek seek(Vector2 point) => SeekForMaxAcceleration(owner: own, point: point);
 }

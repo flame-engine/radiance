@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:vector_math/vector_math_64.dart';
 
 import '../behavior.dart';
+import '../kinematics/max_acceleration_kinematics.dart';
 import '../kinematics/max_speed_kinematics.dart';
 import '../steerable.dart';
 
@@ -28,6 +31,7 @@ abstract class Seek extends Behavior {
   double arrivalEpsilon = 1e-5;
 }
 
+/// [Seek] behavior for objects that have [MaxSpeedKinematics].
 class SeekAtMaxSpeed extends Seek {
   SeekAtMaxSpeed({required Steerable owner, required Vector2 point})
       : assert(owner.kinematics is MaxSpeedKinematics),
@@ -35,17 +39,39 @@ class SeekAtMaxSpeed extends Seek {
 
   @override
   void update(double dt) {
+    final kinematics = own.kinematics as MaxSpeedKinematics;
     final offset = _target - own.position;
     final distance = offset.normalize();
-    final locomotion = own.kinematics as MaxSpeedKinematics;
     if (distance < arrivalEpsilon) {
-      locomotion.stop();
+      kinematics.stop();
     } else {
-      var maxSpeed = locomotion.maxSpeed;
+      var maxSpeed = kinematics.maxSpeed;
       if (maxSpeed * dt > distance) {
         maxSpeed = distance / dt;
       }
-      locomotion.setVelocity(offset..scale(maxSpeed));
+      kinematics.setVelocity(offset..scale(maxSpeed));
     }
+  }
+}
+
+/// [Seek] behavior for objects with [MaxAccelerationKinematics].
+class SeekForMaxAcceleration extends Seek {
+  SeekForMaxAcceleration({required Steerable owner, required Vector2 point})
+      : assert(owner.kinematics is MaxAccelerationKinematics),
+        super._(owner, point);
+
+  @override
+  void update(double dt) {
+    final kinematics = own.kinematics as MaxAccelerationKinematics;
+    final offset = _target - own.position;
+    final targetVelocity = offset..length = kinematics.maxSpeed;
+    final velocityDelta = targetVelocity - own.velocity;
+    final acceleration = min(
+      kinematics.maxAcceleration,
+      velocityDelta.length / dt,
+    );
+    kinematics.acceleration
+      ..setFrom(velocityDelta)
+      ..length = acceleration;
   }
 }
