@@ -1,4 +1,3 @@
-
 import 'package:vector_math/vector_math_64.dart';
 
 import '../kinematics.dart';
@@ -7,10 +6,9 @@ class MaxAccelerationKinematics extends Kinematics {
   MaxAccelerationKinematics({
     required this.maxSpeed,
     required this.maxAcceleration,
-  })
-    : assert(maxSpeed > 0),
-      assert(maxAcceleration >= 0),
-      acceleration = Vector2.zero();
+  })  : assert(maxSpeed > 0),
+        assert(maxAcceleration >= 0),
+        acceleration = Vector2.zero();
 
   double maxSpeed;
   double maxAcceleration;

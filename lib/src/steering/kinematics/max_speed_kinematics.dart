@@ -33,7 +33,6 @@ class MaxSpeedKinematics extends BasicKinematics {
     }
   }
 
-
   @override
   Seek seek(Vector2 point) => SeekAtMaxSpeed(owner: own, point: point);
 }

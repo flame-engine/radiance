@@ -1,4 +1,3 @@
-
 import '../kinematics.dart';
 
 /// [BasicKinematics] class describes motion at a constant linear and
