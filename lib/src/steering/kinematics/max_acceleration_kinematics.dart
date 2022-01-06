@@ -18,16 +18,24 @@ class MaxAccelerationKinematics extends Kinematics {
     required this.maxAcceleration,
   })  : assert(maxSpeed > 0),
         assert(maxAcceleration >= 0),
-        acceleration = Vector2.zero();
+        _acceleration = Vector2.zero();
 
   double maxSpeed;
   double maxAcceleration;
-  Vector2 acceleration;
+  final Vector2 _acceleration;
+
+  void setAcceleration(Vector2 value) {
+    assert(
+      value.length2 <= maxAcceleration * maxAcceleration * (1 + 1e-8),
+      'Trying to set acceleration=$value larger than max=$maxAcceleration',
+    );
+    _acceleration.setFrom(value);
+  }
 
   @override
   void update(double dt) {
     own.position.addScaled(own.velocity, dt);
-    own.velocity.addScaled(acceleration, dt);
+    own.velocity.addScaled(_acceleration, dt);
     final v = own.velocity.length;
     if (v > maxSpeed) {
       own.velocity.scale(maxSpeed / v);

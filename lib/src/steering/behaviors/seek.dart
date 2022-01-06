@@ -70,8 +70,6 @@ class SeekForMaxAcceleration extends Seek {
       kinematics.maxAcceleration,
       velocityDelta.length / dt,
     );
-    kinematics.acceleration
-      ..setFrom(velocityDelta)
-      ..length = acceleration;
+    kinematics.setAcceleration(velocityDelta..length = acceleration);
   }
 }
