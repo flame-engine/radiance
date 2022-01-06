@@ -29,11 +29,11 @@ class _IsCloseTo extends Matcher {
 
   @override
   Description describeMismatch(
-      dynamic item,
-      Description mismatchDescription,
-      Map matchState,
-      bool verbose,
-      ) {
+    dynamic item,
+    Description mismatchDescription,
+    Map matchState,
+    bool verbose,
+  ) {
     if (item is! Vector2) {
       return mismatchDescription.add('is not an instance of Vector2');
     }
