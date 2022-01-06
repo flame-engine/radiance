@@ -7,6 +7,8 @@ import 'basic_kinematics.dart';
 /// direction with speeds up to `maxSpeed`, and change their velocity
 /// instantaneously with no regard to inertia.
 ///
+/// Use this for very small creatures like ants, or in situations where physical
+/// realism is not needed.
 class MaxSpeedKinematics extends BasicKinematics {
   MaxSpeedKinematics(this.maxSpeed)
       : assert(maxSpeed > 0, 'maxSpeed must be positive');
