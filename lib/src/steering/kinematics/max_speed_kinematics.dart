@@ -1,23 +1,17 @@
-import 'dart:math';
-
 import 'package:vector_math/vector_math_64.dart';
 
-import '../kinematics.dart';
+import '../behaviors/seek.dart';
+import 'basic_kinematics.dart';
 
 /// [MaxSpeedKinematics] describes a character who can move freely in any
 /// direction with speeds up to `maxSpeed`, and change their velocity
 /// instantaneously with no regard to inertia.
 ///
-class MaxSpeedKinematics extends Kinematics {
+class MaxSpeedKinematics extends BasicKinematics {
   MaxSpeedKinematics(this.maxSpeed)
       : assert(maxSpeed > 0, 'maxSpeed must be positive');
 
   double maxSpeed;
-
-  void setBearing(double angle) {
-    own.velocity.x = maxSpeed * cos(angle);
-    own.velocity.y = -maxSpeed * sin(angle);
-  }
 
   void stop() {
     own.velocity.setZero();
@@ -38,4 +32,8 @@ class MaxSpeedKinematics extends Kinematics {
       own.velocity.scale(maxSpeed / speed);
     }
   }
+
+
+  @override
+  Seek seek(Vector2 point) => SeekAtMaxSpeed(owner: own, point: point);
 }

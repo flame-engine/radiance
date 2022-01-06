@@ -7,6 +7,7 @@ environment:
   sdk: '>=2.14.0 <3.0.0'
 
 dependencies:
+  meta: ^1.7.0
   vector_math: '>=2.1.0 <3.0.0'
 
 dev_dependencies:

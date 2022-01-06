@@ -1,7 +1,10 @@
+
 import 'steerable.dart';
 
 abstract class Behavior {
-  late final Steerable owner;
+  Behavior(this.own);
 
-  void calculateSteering(double dt);
+  final Steerable own;
+
+  void update(double dt);
 }
