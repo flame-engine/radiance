@@ -1,0 +1,20 @@
+name: sandbox
+description: An app to experiment with different steering behaviors
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flame_lint: ^0.0.1
+
+flutter:
+  uses-material-design: true
