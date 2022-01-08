@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:vector_math/vector_math_64.dart';
 
-class Vector {
-  Vector(this.origin, this.vector);
+class VectorVisual {
+  VectorVisual(this.origin, this.vector);
 
   final Vector2 origin;
   final Vector2 vector;

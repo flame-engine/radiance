@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:vector_math/vector_math_64.dart' hide Vector;
 
 import 'entity.dart';
-import 'vector.dart';
+import 'vector_visual.dart';
 
 class StaticTargetEntity extends Entity {
   StaticTargetEntity({Vector2? position, double size = 5})
@@ -37,6 +37,6 @@ class StaticTargetEntity extends Entity {
 
   @override
   void renderVectors(Canvas canvas) {
-    Vector(position, velocity).render(canvas);
+    VectorVisual(position, velocity).render(canvas);
   }
 }
