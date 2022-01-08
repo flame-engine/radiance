@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:vector_math/vector_math_64.dart';
 
-import 'agent.dart';
+import 'entity.dart';
 
-class StaticTarget extends Agent {
+class StaticTarget extends Entity {
   StaticTarget(Vector2 position, {this.size = 5}) : super(position: position) {
     final a = size / 6;
     path = Path()

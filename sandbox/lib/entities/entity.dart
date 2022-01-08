@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:radiance/steering.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-abstract class Agent implements Steerable {
-  Agent({
+abstract class Entity implements Steerable {
+  Entity({
     Vector2? position,
     Vector2? velocity,
     double? angle,

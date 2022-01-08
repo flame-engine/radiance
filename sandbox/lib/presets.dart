@@ -1,5 +1,5 @@
 import 'package:vector_math/vector_math_64.dart';
-import 'agents/static_target.dart';
+import 'entities/static_target.dart';
 import 'scene.dart';
 
 final kPresets = <Scene>[
