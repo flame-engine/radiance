@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'left_menu.dart';
 
 void main() {
   runApp(
@@ -18,6 +19,8 @@ class _MyScaffold extends StatefulWidget {
 }
 
 class SandboxState extends State<_MyScaffold> {
+  int currentPreset = 0;
+
   @override
   Widget build(BuildContext context) {
     final bgColor = Theme.of(context).scaffoldBackgroundColor;
@@ -28,6 +31,7 @@ class SandboxState extends State<_MyScaffold> {
             color: Theme.of(context).cardColor,
           ),
           constraints: const BoxConstraints.expand(width: 260),
+          child: LeftMenu(this),
         ),
         Expanded(
           child: Stack(
