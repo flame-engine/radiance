@@ -17,15 +17,18 @@ import '../steerable.dart';
 /// There is no attempt to make the agent being able to stop at that point.
 /// Consider `Arrive` behavior if you need the agent to reach the target and
 /// stay there.
+///
+/// This class is abstract because its implementation depends on the kinematics
+/// of the owner. However, because of the factory constructor, you can
+/// instantiate this class as if it was concrete.
 abstract class Seek extends Behavior {
   factory Seek({required Steerable owner, required Vector2 point}) {
     return owner.kinematics.seek(point);
   }
 
-  Seek._(Steerable owner, Vector2 point)
-      : target = point,
-        super(owner);
+  Seek._(Steerable owner, this.target) : super(owner);
 
+  /// The point that the behavior is seeking towards.
   final Vector2 target;
 
   double arrivalRadius = 1e-5;
