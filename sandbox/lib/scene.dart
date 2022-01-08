@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'entities/entity.dart';
 
 class Scene {
-  const Scene(this.name);
+  Scene(this.name);
 
   final String name;
   final List<Entity> entities = [];

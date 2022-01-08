@@ -10,7 +10,7 @@ final kPresets = <Scene>[
 ];
 
 Scene _seek() {
-  const p = Scene('Seek');
+  final p = Scene('Seek');
   final target = StaticTargetEntity(position: Vector2(60, 30));
   final predator = MaxAccelerationEntity(
     position: Vector2(-40, -40),
