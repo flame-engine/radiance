@@ -10,19 +10,19 @@ void main() {
     MaterialApp(
       title: 'Radiance sandbox',
       theme: ThemeData.dark(),
-      home: const _MyScaffold(),
+      home: const _MyApp(),
     ),
   );
 }
 
-class _MyScaffold extends StatefulWidget {
-  const _MyScaffold({Key? key}) : super(key: key);
+class _MyApp extends StatefulWidget {
+  const _MyApp({Key? key}) : super(key: key);
 
   @override
   State createState() => SandboxState();
 }
 
-class SandboxState extends State<_MyScaffold> {
+class SandboxState extends State<_MyApp> {
   int currentPreset = 0;
   Scene get currentScene => kPresets[currentPreset];
 

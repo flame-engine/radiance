@@ -5,7 +5,7 @@ import 'entities/max_acceleration_entity.dart';
 import 'entities/static_target_entity.dart';
 import 'scene.dart';
 
-const kPresets = <Scene>[
+final kPresets = <Scene>[
   _seek(),
 ];
 
