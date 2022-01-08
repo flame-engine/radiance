@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:vector_math/vector_math_64.dart';
@@ -8,7 +7,7 @@ class Vector {
 
   final Vector2 origin;
   final Vector2 vector;
-  final Paint paint = Paint() ..style = PaintingStyle.stroke;
+  final Paint paint = Paint()..style = PaintingStyle.stroke;
   final double arrowHalfWidth = 0.5;
   final double arrowLength = 3;
 

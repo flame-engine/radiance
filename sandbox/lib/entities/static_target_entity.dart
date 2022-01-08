@@ -5,8 +5,9 @@ import 'package:vector_math/vector_math_64.dart' hide Vector;
 import 'entity.dart';
 import 'vector.dart';
 
-class StaticTarget extends Entity {
-  StaticTarget(Vector2 position, {this.size = 5}) : super(position: position) {
+class StaticTargetEntity extends Entity {
+  StaticTargetEntity({Vector2? position, double size = 5})
+      : super(position: position, size: size) {
     final a = size / 6;
     path = Path()
       ..moveTo(0, a)
@@ -23,7 +24,6 @@ class StaticTarget extends Entity {
       ..strokeWidth = 0.5;
   }
 
-  final double size;
   late final Path path;
   late final Paint paint;
 
