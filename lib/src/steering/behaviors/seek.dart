@@ -17,18 +17,19 @@ import '../steerable.dart';
 /// There is no attempt to make the agent being able to stop at that point.
 /// Consider `Arrive` behavior if you need the agent to reach the target and
 /// stay there.
+///
+/// This class is abstract because its implementation depends on the kinematics
+/// of the owner. However, because of the factory constructor, you can
+/// instantiate this class as if it was concrete.
 abstract class Seek extends Behavior {
   factory Seek({required Steerable owner, required Vector2 point}) {
     return owner.kinematics.seek(point);
   }
 
-  Seek._(Steerable owner, Vector2 point)
-      : _target = point,
-        super(owner);
+  Seek._(Steerable owner, this.target) : super(owner);
 
-  Vector2 _target;
-
-  double arrivalEpsilon = 1e-5;
+  /// The point that the behavior is seeking towards.
+  final Vector2 target;
 }
 
 /// [Seek] behavior for objects that have [MaxSpeedKinematics].
@@ -40,17 +41,13 @@ class SeekAtMaxSpeed extends Seek {
   @override
   void update(double dt) {
     final kinematics = own.kinematics as MaxSpeedKinematics;
-    final offset = _target - own.position;
+    final offset = target - own.position;
     final distance = offset.normalize();
-    if (distance < arrivalEpsilon) {
-      kinematics.stop();
-    } else {
-      var maxSpeed = kinematics.maxSpeed;
-      if (maxSpeed * dt > distance) {
-        maxSpeed = distance / dt;
-      }
-      kinematics.setVelocity(offset..scale(maxSpeed));
+    var maxSpeed = kinematics.maxSpeed;
+    if (maxSpeed * dt > distance) {
+      maxSpeed = distance / dt;
     }
+    kinematics.setVelocity(offset..scale(maxSpeed));
   }
 }
 
@@ -63,7 +60,7 @@ class SeekForMaxAcceleration extends Seek {
   @override
   void update(double dt) {
     final kinematics = own.kinematics as MaxAccelerationKinematics;
-    final offset = _target - own.position;
+    final offset = target - own.position;
     final targetVelocity = offset..length = kinematics.maxSpeed;
     final velocityDelta = targetVelocity - own.velocity;
     final acceleration = min(

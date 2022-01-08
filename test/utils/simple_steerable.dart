@@ -30,4 +30,11 @@ class SimpleSteerable implements Steerable {
 
   @override
   Kinematics kinematics;
+
+  Behavior? behavior;
+
+  void update(double dt) {
+    behavior?.update(dt);
+    kinematics.update(dt);
+  }
 }
