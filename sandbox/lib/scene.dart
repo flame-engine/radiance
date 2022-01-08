@@ -1,7 +1,6 @@
-
 import 'dart:ui';
 
-import 'agents.dart';
+import 'agents/agent.dart';
 
 class Scene {
   Scene(this.name);

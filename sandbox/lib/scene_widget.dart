@@ -29,7 +29,7 @@ class _SceneWidgetState extends State<SceneWidget> {
   @override
   void initState() {
     super.initState();
-    ticker = Ticker(_handleTick) ..start();
+    ticker = Ticker(_handleTick)..start();
   }
 
   @override

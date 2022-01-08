@@ -1,11 +1,10 @@
 import 'package:vector_math/vector_math_64.dart';
-import 'agents.dart';
+import 'agents/static_target.dart';
 import 'scene.dart';
 
 final kPresets = <Scene>[
   _seek(),
 ];
-
 
 Scene _seek() {
   final p = Scene('Seek');

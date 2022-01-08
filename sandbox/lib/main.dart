@@ -54,7 +54,8 @@ class SandboxState extends State<_MyScaffold> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: SceneWidget(this),),
+                      child: SceneWidget(this),
+                    ),
                   ),
                 ],
               ),
