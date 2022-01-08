@@ -5,12 +5,12 @@ import 'entities/max_acceleration_entity.dart';
 import 'entities/static_target_entity.dart';
 import 'scene.dart';
 
-final kPresets = <Scene>[
+const kPresets = <Scene>[
   _seek(),
 ];
 
 Scene _seek() {
-  final p = Scene('Seek');
+  const p = Scene('Seek');
   final target = StaticTargetEntity(position: Vector2(60, 30));
   final predator = MaxAccelerationEntity(
     position: Vector2(-40, -40),

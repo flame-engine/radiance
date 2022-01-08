@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'entities/entity.dart';
 
 class Scene {
-  Scene(this.name);
+  const Scene(this.name);
 
   final String name;
   final List<Entity> entities = [];
-  bool showVectors = true;
+  final bool showVectors = true;
 
   void add(Entity e) => entities.add(e);
 
