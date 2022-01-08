@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'main.dart';
+import '../main.dart';
 
 /// This widget is responsible for drawing the main canvas and implementing
 /// a simple "game loop" to continuously update it.

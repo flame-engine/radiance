@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'presets.dart';
+import '../main.dart';
+import '../presets.dart';
 
 class LeftMenu extends StatelessWidget {
   const LeftMenu(this.app);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'left_menu.dart';
+import 'widgets/left_menu.dart';
 import 'presets.dart';
 import 'scene.dart';
-import 'scene_widget.dart';
+import 'widgets/scene_widget.dart';
 
 void main() {
   runApp(
