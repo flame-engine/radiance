@@ -1,22 +1,14 @@
 import 'package:vector_math/vector_math_64.dart';
-
 import 'agents.dart';
+import 'scene.dart';
 
-final kPresets = <Preset>[
+final kPresets = <Scene>[
   _seek(),
 ];
 
-class Preset {
-  Preset(this.name);
 
-  final String name;
-  final List<Agent> entities = [];
-
-  void add(Agent agent) => entities.add(agent);
-}
-
-Preset _seek() {
-  final p = Preset('Seek');
+Scene _seek() {
+  final p = Scene('Seek');
   final target = StaticTarget(Vector2(60, 30));
   p.add(target);
   return p;

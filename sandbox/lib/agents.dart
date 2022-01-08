@@ -36,6 +36,10 @@ abstract class Agent implements Steerable {
   Kinematics kinematics;
 
   void render(Canvas canvas);
+
+  void update(double dt) {
+    kinematics.update(dt);
+  }
 }
 
 class StaticTarget extends Agent {

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'left_menu.dart';
+import 'presets.dart';
+import 'scene.dart';
+import 'scene_widget.dart';
 
 void main() {
   runApp(
@@ -20,12 +24,14 @@ class _MyScaffold extends StatefulWidget {
 
 class SandboxState extends State<_MyScaffold> {
   int currentPreset = 0;
+  Scene get currentScene => kPresets[currentPreset];
 
   @override
   Widget build(BuildContext context) {
     final bgColor = Theme.of(context).scaffoldBackgroundColor;
     return Row(
       children: [
+        // Left-side panel containing the list of presets
         Container(
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
@@ -39,35 +45,33 @@ class SandboxState extends State<_MyScaffold> {
               Container(color: bgColor),
               Column(
                 children: [
+                  // Top menu
                   Container(
-                    constraints: const BoxConstraints.expand(height: 30),
+                    constraints: const BoxConstraints.expand(height: 40),
                     color: Theme.of(context).cardColor,
                   ),
+                  // Main canvas area
                   Expanded(
-                    child: Container(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: SceneWidget(this),),
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          Color(0x80000000),
-                          Color(0x40000000),
-                          Color(0x1A000000),
-                          Color(0x00000000),
-                        ],
-                        stops: [0, 0.4, 0.6, 1.0],
-                      ),
-                    ),
-                    constraints: const BoxConstraints.expand(width: 8),
+              // Shadow effect for the left-side panel
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      Color(0x80000000),
+                      Color(0x40000000),
+                      Color(0x1A000000),
+                      Color(0x00000000),
+                    ],
+                    stops: [0, 0.4, 0.6, 1.0],
                   ),
-                  Expanded(
-                    child: Container(),
-                  ),
-                ],
+                ),
+                constraints: const BoxConstraints.expand(width: 8),
               ),
             ],
           ),
