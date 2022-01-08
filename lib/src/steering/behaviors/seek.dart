@@ -23,12 +23,12 @@ abstract class Seek extends Behavior {
   }
 
   Seek._(Steerable owner, Vector2 point)
-      : _target = point,
+      : target = point,
         super(owner);
 
-  Vector2 _target;
+  final Vector2 target;
 
-  double arrivalEpsilon = 1e-5;
+  double arrivalRadius = 1e-5;
 }
 
 /// [Seek] behavior for objects that have [MaxSpeedKinematics].
@@ -40,9 +40,9 @@ class SeekAtMaxSpeed extends Seek {
   @override
   void update(double dt) {
     final kinematics = own.kinematics as MaxSpeedKinematics;
-    final offset = _target - own.position;
+    final offset = target - own.position;
     final distance = offset.normalize();
-    if (distance < arrivalEpsilon) {
+    if (distance < arrivalRadius) {
       kinematics.stop();
     } else {
       var maxSpeed = kinematics.maxSpeed;
@@ -63,7 +63,7 @@ class SeekForMaxAcceleration extends Seek {
   @override
   void update(double dt) {
     final kinematics = own.kinematics as MaxAccelerationKinematics;
-    final offset = _target - own.position;
+    final offset = target - own.position;
     final targetVelocity = offset..length = kinematics.maxSpeed;
     final velocityDelta = targetVelocity - own.velocity;
     final acceleration = min(
