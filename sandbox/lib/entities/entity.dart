@@ -1,26 +1,33 @@
+import 'dart:ui';
+
 import 'package:radiance/steering.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-class SimpleSteerable implements Steerable {
-  SimpleSteerable({
+abstract class Entity implements Steerable {
+  Entity({
     Vector2? position,
     Vector2? velocity,
     double? angle,
     double? angularVelocity,
     Kinematics? kinematics,
+    double? size,
+    this.behavior,
   })  : position = position ?? Vector2.zero(),
         velocity = velocity ?? Vector2.zero(),
         angle = angle ?? 0,
         angularVelocity = angularVelocity ?? 0,
+        size = size ?? 0,
         kinematics = kinematics ?? BasicKinematics() {
     this.kinematics.handleAttach(this);
   }
 
-  @override
-  Vector2 position;
+  final double size;
 
   @override
-  Vector2 velocity;
+  final Vector2 position;
+
+  @override
+  final Vector2 velocity;
 
   @override
   double angle;
@@ -32,6 +39,9 @@ class SimpleSteerable implements Steerable {
   Kinematics kinematics;
 
   Behavior? behavior;
+
+  void render(Canvas canvas);
+  void renderVectors(Canvas canvas);
 
   void update(double dt) {
     behavior?.update(dt);

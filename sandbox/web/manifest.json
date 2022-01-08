@@ -1,0 +1,11 @@
+{
+    "name": "sandbox",
+    "short_name": "sandbox",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A Flutter app to experiment with different steering behaviors.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false
+}
