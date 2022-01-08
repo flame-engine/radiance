@@ -34,6 +34,7 @@ abstract class Entity implements Steerable {
   Kinematics kinematics;
 
   void render(Canvas canvas);
+  void renderVectors(Canvas canvas);
 
   void update(double dt) {
     kinematics.update(dt);

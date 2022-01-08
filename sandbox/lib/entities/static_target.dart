@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' hide Vector;
 
 import 'entity.dart';
+import 'vector.dart';
 
 class StaticTarget extends Entity {
   StaticTarget(Vector2 position, {this.size = 5}) : super(position: position) {
@@ -32,5 +33,10 @@ class StaticTarget extends Entity {
     canvas.translate(position.x, position.y);
     canvas.drawPath(path, paint);
     canvas.restore();
+  }
+
+  @override
+  void renderVectors(Canvas canvas) {
+    Vector(position, velocity).render(canvas);
   }
 }
