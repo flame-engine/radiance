@@ -1,3 +1,4 @@
+import 'package:radiance/src/steering/behavior.dart';
 import 'package:radiance/src/steering/kinematics/basic_kinematics.dart';
 import 'package:radiance/steering.dart';
 import 'package:vector_math/vector_math_64.dart';
@@ -31,4 +32,11 @@ class SimpleSteerable implements Steerable {
 
   @override
   Kinematics kinematics;
+
+  Behavior? behavior;
+
+  void update(double dt) {
+    behavior?.update(dt);
+    kinematics.update(dt);
+  }
 }
