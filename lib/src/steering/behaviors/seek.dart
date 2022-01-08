@@ -30,8 +30,6 @@ abstract class Seek extends Behavior {
 
   /// The point that the behavior is seeking towards.
   final Vector2 target;
-
-  double arrivalRadius = 1e-5;
 }
 
 /// [Seek] behavior for objects that have [MaxSpeedKinematics].
@@ -45,15 +43,11 @@ class SeekAtMaxSpeed extends Seek {
     final kinematics = own.kinematics as MaxSpeedKinematics;
     final offset = target - own.position;
     final distance = offset.normalize();
-    if (distance < arrivalRadius) {
-      kinematics.stop();
-    } else {
-      var maxSpeed = kinematics.maxSpeed;
-      if (maxSpeed * dt > distance) {
-        maxSpeed = distance / dt;
-      }
-      kinematics.setVelocity(offset..scale(maxSpeed));
+    var maxSpeed = kinematics.maxSpeed;
+    if (maxSpeed * dt > distance) {
+      maxSpeed = distance / dt;
     }
+    kinematics.setVelocity(offset..scale(maxSpeed));
   }
 }
 

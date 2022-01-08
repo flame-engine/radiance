@@ -19,7 +19,6 @@ void main() {
 
         expect(behavior.own, agent);
         expect(behavior.target, closeToVector(20, 50));
-        expect(behavior.arrivalRadius, 1e-5);
       });
 
       // The seeker will go towards the target at full speed, irrespective of
@@ -66,7 +65,6 @@ void main() {
 
         expect(behavior.own, agent);
         expect(behavior.target, closeToVector(20, 50));
-        expect(behavior.arrivalRadius, 1e-5);
       });
 
       // If the agent starts at rest, the optimal strategy is to accelerate
