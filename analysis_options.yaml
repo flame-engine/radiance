@@ -1,5 +1,5 @@
 include: package:flame_lint/analysis_options.yaml
 
-#analyzer:
-#  exclude:
-#    - sandbox/**
+analyzer:
+  exclude:
+    - sandbox/**
