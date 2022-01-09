@@ -1,5 +1,6 @@
 import 'package:vector_math/vector_math_64.dart';
 
+import '../behaviors/flee.dart';
 import '../behaviors/seek.dart';
 import '../kinematics.dart';
 
@@ -44,4 +45,8 @@ class MaxAccelerationKinematics extends Kinematics {
 
   @override
   Seek seek(Vector2 point) => SeekForMaxAcceleration(owner: own, point: point);
+
+  @override
+  Flee flee(List<Vector2> targets) =>
+      FleeForMaxAcceleration(owner: own, targets: targets);
 }

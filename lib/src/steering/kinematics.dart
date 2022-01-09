@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:vector_math/vector_math_64.dart';
 
+import 'behaviors/flee.dart';
 import 'behaviors/seek.dart';
 import 'steerable.dart';
 
@@ -46,6 +47,10 @@ abstract class Kinematics {
 
   Seek seek(Vector2 target) {
     throw UnsupportedError('Seek behavior is not available for $runtimeType');
+  }
+
+  Flee flee(List<Vector2> targets) {
+    throw UnsupportedError('Flee behavior is not available for $runtimeType');
   }
 
   //#endregion
