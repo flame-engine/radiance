@@ -9,6 +9,9 @@ export 'src/steering/steerable.dart' show Steerable;
 export 'src/steering/kinematics/basic_kinematics.dart' show BasicKinematics;
 export 'src/steering/kinematics/max_acceleration_kinematics.dart'
     show MaxAccelerationKinematics;
+export 'src/steering/kinematics/max_speed_kinematics.dart'
+    show MaxSpeedKinematics;
 
 // Behaviors
+export 'src/steering/behaviors/flee.dart' show Flee;
 export 'src/steering/behaviors/seek.dart' show Seek;
