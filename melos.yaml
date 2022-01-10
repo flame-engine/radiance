@@ -1,0 +1,33 @@
+name: Radiance
+repository: https://github.com/flame-engine/radiance
+
+packages:
+  - "*"
+  - sandbox/*
+
+command:
+  version:
+    linkToCommits: true
+    branch: main
+    workspaceChangelog: true
+
+scripts:
+  lint:
+    run: melos run analyze && melos run format
+    description: Run all static analysis checks.
+
+  analyze:
+    run: melos exec flutter analyze
+    description: Run `flutter analyze` for all packages.
+
+  format:
+    run: melos exec flutter format .
+    description: Run `flutter format` for all packages.
+
+  coverage:
+    run: |
+      melos exec -- flutter test --coverage &&
+      melos exec -- genhtml coverage/lcov.info --output-directory=coverage/
+    select-package:
+      dir-exists: test
+    description: Generate coverage for the selected package.
