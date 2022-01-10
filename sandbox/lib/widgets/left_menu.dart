@@ -74,7 +74,7 @@ class _ListItemState extends State<_ListItem> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
             child: Text(
-              kPresets[widget.index].name,
+              widget.app.currentScene.name,
               style: isCurrent ? styleWhenCurrent : null,
             ),
           ),
