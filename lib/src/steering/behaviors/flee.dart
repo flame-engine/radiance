@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:radiance/src/utils.dart';
 import 'package:vector_math/vector_math_64.dart' show Vector2;
 
 import '../behavior.dart';
@@ -34,8 +37,8 @@ abstract class Flee extends Behavior {
 
   /// Compute the best direction for fleeing. The returned vector is normalized.
   /// If the set of fleeing targets is so balanced that their centroid coincides
-  /// with the agent's current position exactly, then a random direction will
-  /// be chosen.
+  /// with the agent's current position exactly, then return the direction in
+  /// which the character is currently looking at.
   Vector2 get fleeDirection {
     final currentPosition = own.position;
     final result = Vector2.zero();
@@ -49,7 +52,7 @@ abstract class Flee extends Behavior {
     }
     final l = result.length;
     if (l == 0) {
-      Vector2.random()..normalizeInto(result);
+      result..setFrom(Utils.angleToVector(own.angle));
     } else {
       result.scale(1 / l);
     }
