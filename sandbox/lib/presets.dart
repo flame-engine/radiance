@@ -14,6 +14,11 @@ class Presets {
 
   static int get numGroups => _presets.length;
   static _PresetGroup group(int i) => _presets[i];
+  static int numItemsInGroup(int i) => _presets[i].items.length;
+
+  static Scene makeScene(int groupIndex, int sceneIndex) {
+    return _presets[groupIndex].items[sceneIndex]();
+  }
 
   //# region Individual presets
 

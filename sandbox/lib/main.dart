@@ -40,17 +40,25 @@ class _MyApp extends StatefulWidget {
 
 /// Main state for the entire app.
 class SandboxState extends State<_MyApp> {
-  SandboxState() {
+  SandboxState()
+      : assert(Presets.numGroups > 0, 'Presets must not be empty'),
+        assert(Presets.numItemsInGroup(0) > 0, 'Preset group cannot be empty') {
+    groupOpen[0] = true;
     currentGroup = 0;
-    selectPreset(0);
+    currentPreset = 0;
+    currentScene = Presets.makeScene(0, 0);
   }
 
-  /// Index of the group that is currently open in the left-side menu. If all
-  /// groups are closed, this is `null`.
+  /// Boolean indicators for which of the preset groups in the LHS menu are
+  /// currently expanded, and which are folded.
+  List<bool> groupOpen = List.filled(Presets.numGroups, false);
+
+  /// Index of the group in the left-side menu where the current preset belongs
+  /// to. If there is no preset selected, this will be `null`.
   int? currentGroup;
 
-  /// Index of the preset within the currently open group. This should be `null`
-  /// if all groups are closed, or if no presets are selected.
+  /// Index of the selected preset within the [currentGroup]. If there is no
+  /// preset selected, this will be `null`.
   int? currentPreset;
 
   late Scene currentScene;
