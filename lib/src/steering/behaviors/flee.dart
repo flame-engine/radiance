@@ -50,7 +50,7 @@ abstract class Flee extends Behavior {
     }
     final l = result.length;
     if (l == 0) {
-      result..setFrom(Utils.angleToVector(own.angle));
+      result..setFrom(angleToVector(own.angle));
     } else {
       result.scale(1 / l);
     }

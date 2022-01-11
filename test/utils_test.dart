@@ -11,20 +11,28 @@ void main() {
     const tau = pi * 2;
 
     test('angleToVector', () {
-      expect(Utils.angleToVector(0), closeToVector(1, 0));
-      expect(Utils.angleToVector(tau / 4), closeToVector(0, -1));
-      expect(Utils.angleToVector(tau / 2), closeToVector(-1, 0));
-      expect(Utils.angleToVector(3 / 4 * tau), closeToVector(0, 1));
-      expect(Utils.angleToVector(2), closeToVector(cos(2), -sin(2)));
+      expect(angleToVector(0), closeToVector(1, 0));
+      expect(angleToVector(tau / 4), closeToVector(0, -1));
+      expect(angleToVector(tau / 2), closeToVector(-1, 0));
+      expect(angleToVector(3 / 4 * tau), closeToVector(0, 1));
+      expect(angleToVector(2), closeToVector(cos(2), -sin(2)));
     });
 
     test('vectorToAngle', () {
-      expect(Utils.vectorToAngle(Vector2(1, 0)), closeTo(0, 1e-15));
-      expect(Utils.vectorToAngle(Vector2(-1, 0)), closeTo(-tau / 2, 1e-15));
-      expect(Utils.vectorToAngle(Vector2(0, -1)), closeTo(tau / 4, 1e-15));
-      expect(Utils.vectorToAngle(Vector2(0, 1)), closeTo(-tau / 4, 1e-15));
-      expect(Utils.vectorToAngle(Vector2(1, 1)), closeTo(-tau / 8, 1e-15));
-      expect(Utils.vectorToAngle(Vector2(3, -4)), closeTo(acos(0.6), 1e-15));
+      expect(vectorToAngle(Vector2(1, 0)), closeTo(0, 1e-15));
+      expect(vectorToAngle(Vector2(-1, 0)), closeTo(-tau / 2, 1e-15));
+      expect(vectorToAngle(Vector2(0, -1)), closeTo(tau / 4, 1e-15));
+      expect(vectorToAngle(Vector2(0, 1)), closeTo(-tau / 4, 1e-15));
+      expect(vectorToAngle(Vector2(1, 1)), closeTo(-tau / 8, 1e-15));
+      expect(vectorToAngle(Vector2(3, -4)), closeTo(acos(0.6), 1e-15));
+    });
+
+    test('change angleToVector', () {
+      final f = angleToVector;
+      angleToVector = (double a) => Vector2(0, -1);
+      expect(angleToVector(0), closeToVector(0, -1));
+      expect(angleToVector(tau / 2), closeToVector(0, -1));
+      angleToVector = f;
     });
   });
 }

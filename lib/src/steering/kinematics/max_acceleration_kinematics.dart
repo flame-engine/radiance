@@ -47,6 +47,7 @@ class MaxAccelerationKinematics extends Kinematics {
   Seek seek(Vector2 point) => SeekForMaxAcceleration(owner: own, point: point);
 
   @override
-  Flee flee(List<Vector2> targets) =>
-      FleeForMaxAcceleration(owner: own, targets: targets);
+  Flee flee(List<Vector2> targets) {
+    return FleeForMaxAcceleration(owner: own, targets: targets);
+  }
 }
