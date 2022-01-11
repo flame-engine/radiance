@@ -9,7 +9,8 @@ class LeftMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final n = kPresets.length;
+    final group = Presets.group(app.currentGroup!);
+    final n = group.items.length;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Column(

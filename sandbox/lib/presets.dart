@@ -5,21 +5,39 @@ import 'entities/max_acceleration_entity.dart';
 import 'entities/static_target_entity.dart';
 import 'scene.dart';
 
-final kPresets = [
-  _seek,
-];
+class Presets {
+  static const _presets = [
+    _PresetGroup('Seek', [
+      _seek1,
+    ]),
+  ];
 
-Scene _seek() {
-  final p = Scene('Seek');
-  final target = StaticTargetEntity(position: Vector2(60, 30));
-  final predator = MaxAccelerationEntity(
-    position: Vector2(-40, -40),
-    velocity: Vector2(-10, 10),
-    maxSpeed: 25,
-    maxAcceleration: 15,
-  );
-  predator.behavior = Seek(owner: predator, point: target.position);
-  p.add(target);
-  p.add(predator);
-  return p;
+  static int get numGroups => _presets.length;
+  static _PresetGroup group(int i) => _presets[i];
+
+  //# region Individual presets
+
+  static Scene _seek1() {
+    final p = Scene('Heavy');
+    final target = StaticTargetEntity(position: Vector2(60, 30));
+    final predator = MaxAccelerationEntity(
+      position: Vector2(-40, -40),
+      velocity: Vector2(-10, 10),
+      maxSpeed: 25,
+      maxAcceleration: 15,
+    );
+    predator.behavior = Seek(owner: predator, point: target.position);
+    p.add(target);
+    p.add(predator);
+    return p;
+  }
+
+  //# endregion
+}
+
+class _PresetGroup {
+  const _PresetGroup(this.name, this.items);
+
+  final String name;
+  final List<Scene Function()> items;
 }

@@ -38,14 +38,31 @@ class _MyApp extends StatefulWidget {
   State createState() => SandboxState();
 }
 
+/// Main state for the entire app.
 class SandboxState extends State<_MyApp> {
   SandboxState() {
-    currentScene = kPresets[currentPreset]();
+    currentGroup = 0;
+    selectPreset(0);
   }
 
-  int currentPreset = 0;
-  EngineState engineState = EngineState.running;
+  /// Index of the group that is currently open in the left-side menu. If all
+  /// groups are closed, this is `null`.
+  int? currentGroup;
+
+  /// Index of the preset within the currently open group. This should be `null`
+  /// if all groups are closed, or if no presets are selected.
+  int? currentPreset;
+
   late Scene currentScene;
+
+  EngineState engineState = EngineState.running;
+
+  void selectPreset(int? index) {
+    currentPreset = index;
+    if (index != null) {
+      currentScene = Presets.group(currentGroup!).items[index]();
+    }
+  }
 
   void startEngine() {
     setState(() => engineState = EngineState.running);
@@ -58,7 +75,7 @@ class SandboxState extends State<_MyApp> {
   void stopEngine() {
     setState(() {
       engineState = EngineState.stopped;
-      currentScene = kPresets[currentPreset]();
+      selectPreset(currentPreset);
     });
   }
 
