@@ -65,11 +65,9 @@ class SandboxState extends State<_MyApp> {
 
   EngineState engineState = EngineState.running;
 
-  void selectPreset(int? index) {
+  void selectPreset(int index) {
     currentPreset = index;
-    if (index != null) {
-      currentScene = Presets.group(currentGroup!).items[index]();
-    }
+    currentScene = Presets.makeScene(currentGroup!, index);
   }
 
   void startEngine() {
@@ -83,7 +81,7 @@ class SandboxState extends State<_MyApp> {
   void stopEngine() {
     setState(() {
       engineState = EngineState.stopped;
-      selectPreset(currentPreset);
+      // selectPreset(currentPreset);
     });
   }
 

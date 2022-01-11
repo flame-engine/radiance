@@ -8,7 +8,7 @@ import 'scene.dart';
 class Presets {
   static const _presets = [
     _PresetGroup('Seek', [
-      _seek1,
+      _PresetItem('Heavy', _seek1),
     ]),
   ];
 
@@ -17,7 +17,11 @@ class Presets {
   static int numItemsInGroup(int i) => _presets[i].items.length;
 
   static Scene makeScene(int groupIndex, int sceneIndex) {
-    return _presets[groupIndex].items[sceneIndex]();
+    return _presets[groupIndex].items[sceneIndex].maker();
+  }
+
+  static String sceneName(int groupIndex, int sceneIndex) {
+    return _presets[groupIndex].items[sceneIndex].name;
   }
 
   //# region Individual presets
@@ -44,5 +48,11 @@ class _PresetGroup {
   const _PresetGroup(this.name, this.items);
 
   final String name;
-  final List<Scene Function()> items;
+  final List<_PresetItem> items;
+}
+
+class _PresetItem {
+  const _PresetItem(this.name, this.maker);
+  final String name;
+  final Scene Function() maker;
 }

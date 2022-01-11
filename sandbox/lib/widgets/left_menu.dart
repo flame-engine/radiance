@@ -9,8 +9,6 @@ class LeftMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final group = Presets.group(app.currentGroup!);
-    final n = group.items.length;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Column(
@@ -21,9 +19,6 @@ class LeftMenu extends StatelessWidget {
               'Presets',
               textAlign: TextAlign.left,
               style: Theme.of(context).primaryTextTheme.headline6,
-              // TextStyle(color: Theme.of(context).primaryColor,
-              //   fontSize: Theme.of(context).primaryTextTheme.
-              // ),
             ),
           ),
           Padding(
@@ -34,7 +29,9 @@ class LeftMenu extends StatelessWidget {
                 fontSize: 14,
               ),
               child: Column(
-                children: List.generate(n, (i) => _ListItem(i, app)),
+                children: List.generate(
+                    Presets.numGroups, (i) => _ListHeader(app, i),
+                ),
               ),
             ),
           ),
@@ -44,11 +41,46 @@ class LeftMenu extends StatelessWidget {
   }
 }
 
-class _ListItem extends StatefulWidget {
-  const _ListItem(this.index, this.app);
+class _ListHeader extends StatelessWidget {
+  const _ListHeader(this.app, this.groupIndex);
 
-  final int index;
   final SandboxState app;
+  final int groupIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    final title = Presets.group(groupIndex).name;
+    final isOpen = app.groupOpen[groupIndex];
+    Widget result = MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Row(
+        children: [
+          Icon(isOpen ? Icons.arrow_right : Icons.arrow_drop_down),
+          Text(title),
+        ],
+      ),
+    );
+    if (isOpen) {
+      final n = Presets.numItemsInGroup(groupIndex);
+      final groupIsCurrent = app.currentGroup == groupIndex;
+      result = Column(
+        children: [
+          result,
+          for (var i = 0; i < n; i++)
+            _ListItem(groupIndex, i, groupIsCurrent && i == app.currentPreset)
+        ],
+      );
+    }
+    return result;
+  }
+}
+
+class _ListItem extends StatefulWidget {
+  const _ListItem(this.groupIndex, this.itemIndex, this.isCurrent);
+
+  final int groupIndex;
+  final int itemIndex;
+  final bool isCurrent;
 
   @override
   State createState() => _ListItemState();
@@ -63,7 +95,6 @@ class _ListItemState extends State<_ListItem> {
 
   @override
   Widget build(BuildContext context) {
-    final isCurrent = widget.app.currentPreset == widget.index;
     return MouseRegion(
       onEnter: _mouseEnter,
       onExit: _mouseLeave,
@@ -75,8 +106,8 @@ class _ListItemState extends State<_ListItem> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
             child: Text(
-              widget.app.currentScene.name,
-              style: isCurrent ? styleWhenCurrent : null,
+              Presets.sceneName(widget.groupIndex, widget.itemIndex),
+              style: widget.isCurrent ? styleWhenCurrent : null,
             ),
           ),
         ),
