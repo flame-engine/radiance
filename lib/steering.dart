@@ -4,6 +4,7 @@
 export 'src/steering/behavior.dart' show Behavior;
 export 'src/steering/kinematics.dart' show Kinematics;
 export 'src/steering/steerable.dart' show Steerable;
+export 'src/utils.dart' show Utils;
 
 // Kinematics implementations
 export 'src/steering/kinematics/basic_kinematics.dart' show BasicKinematics;
