@@ -17,7 +17,7 @@ class Presets {
   static int numItemsInGroup(int i) => _presets[i].items.length;
 
   static Scene makeScene(int groupIndex, int sceneIndex) {
-    return _presets[groupIndex].items[sceneIndex].maker();
+    return _presets[groupIndex].items[sceneIndex].make();
   }
 
   static String sceneName(int groupIndex, int sceneIndex) {
@@ -55,4 +55,6 @@ class _PresetItem {
   const _PresetItem(this.name, this.maker);
   final String name;
   final Scene Function() maker;
+
+  Scene make() => maker();
 }

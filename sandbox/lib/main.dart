@@ -40,18 +40,17 @@ class _MyApp extends StatefulWidget {
 
 /// Main state for the entire app.
 class SandboxState extends State<_MyApp> {
-  SandboxState()
-      : assert(Presets.numGroups > 0, 'Presets must not be empty'),
-        assert(Presets.numItemsInGroup(0) > 0, 'Preset group cannot be empty') {
-    groupOpen[0] = true;
+  SandboxState(){
+    // Initially, we will show first preset in the first group
     currentGroup = 0;
     currentPreset = 0;
+    openGroups[currentGroup!] = true;
     currentScene = Presets.makeScene(0, 0);
   }
 
   /// Boolean indicators for which of the preset groups in the LHS menu are
   /// currently expanded, and which are folded.
-  List<bool> groupOpen = List.filled(Presets.numGroups, false);
+  List<bool> openGroups = List.filled(Presets.numGroups, false);
 
   /// Index of the group in the left-side menu where the current preset belongs
   /// to. If there is no preset selected, this will be `null`.
@@ -65,9 +64,12 @@ class SandboxState extends State<_MyApp> {
 
   EngineState engineState = EngineState.running;
 
-  void selectPreset(int index) {
-    currentPreset = index;
-    currentScene = Presets.makeScene(currentGroup!, index);
+  void selectPreset(int groupIndex, int itemIndex) {
+    setState(() {
+      currentGroup = groupIndex;
+      currentPreset = itemIndex;
+      currentScene = Presets.makeScene(groupIndex, itemIndex);
+    });
   }
 
   void startEngine() {
@@ -81,7 +83,9 @@ class SandboxState extends State<_MyApp> {
   void stopEngine() {
     setState(() {
       engineState = EngineState.stopped;
-      // selectPreset(currentPreset);
+      if (currentGroup != null && currentPreset != null) {
+        selectPreset(currentGroup!, currentPreset!);
+      }
     });
   }
 

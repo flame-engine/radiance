@@ -50,7 +50,7 @@ class _ListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = Presets.group(groupIndex).name;
-    final isOpen = app.groupOpen[groupIndex];
+    final isOpen = app.openGroups[groupIndex];
     Widget result = MouseRegion(
       cursor: SystemMouseCursors.click,
       child: Row(
