@@ -4,12 +4,28 @@ import 'presets.dart';
 import 'scene.dart';
 import 'widgets/left_menu.dart';
 import 'widgets/scene_widget.dart';
+import 'widgets/top_menu.dart';
 
 void main() {
   runApp(
     MaterialApp(
       title: 'Radiance sandbox',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(const Size(30, 30)),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(5)),
+            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) =>
+                  states.contains(MaterialState.disabled)
+                      ? const Color(0xFF5F5F5F)
+                      : const Color(0xFFBBBBBB),
+            ),
+            overlayColor: MaterialStateProperty.all(const Color(0xFF555555)),
+          ),
+        ),
+      ),
       home: const _MyApp(),
     ),
   );
@@ -23,8 +39,28 @@ class _MyApp extends StatefulWidget {
 }
 
 class SandboxState extends State<_MyApp> {
+  SandboxState() {
+    currentScene = kPresets[currentPreset]();
+  }
+
   int currentPreset = 0;
-  Scene get currentScene => kPresets[currentPreset];
+  EngineState engineState = EngineState.running;
+  late Scene currentScene;
+
+  void startEngine() {
+    setState(() => engineState = EngineState.running);
+  }
+
+  void pauseEngine() {
+    setState(() => engineState = EngineState.paused);
+  }
+
+  void stopEngine() {
+    setState(() {
+      engineState = EngineState.stopped;
+      currentScene = kPresets[currentPreset]();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +85,7 @@ class SandboxState extends State<_MyApp> {
                   Container(
                     constraints: const BoxConstraints.expand(height: 40),
                     color: Theme.of(context).cardColor,
+                    child: TopMenu(this),
                   ),
                   // Main canvas area
                   Expanded(
@@ -80,4 +117,10 @@ class SandboxState extends State<_MyApp> {
       ],
     );
   }
+}
+
+enum EngineState {
+  running,
+  paused,
+  stopped,
 }

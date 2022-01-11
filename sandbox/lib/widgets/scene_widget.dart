@@ -16,6 +16,7 @@ class SceneWidget extends StatefulWidget {
 class _SceneWidgetState extends State<SceneWidget> {
   Ticker? ticker;
   Duration currentTime = Duration.zero;
+  EngineState currentState = EngineState.running;
   double dt = 0.0;
 
   void _handleTick(Duration time) {
@@ -24,6 +25,16 @@ class _SceneWidgetState extends State<SceneWidget> {
       currentTime = time;
       widget.app.currentScene.update(dt);
     });
+  }
+
+  void _handleStateChange() {
+    if (widget.app.engineState == EngineState.running) {
+      ticker?.start();
+    } else {
+      ticker?.stop();
+      currentTime = Duration.zero;
+    }
+    currentState = widget.app.engineState;
   }
 
   @override
@@ -40,6 +51,9 @@ class _SceneWidgetState extends State<SceneWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (currentState != widget.app.engineState) {
+      _handleStateChange();
+    }
     return Align(
       child: AspectRatio(
         aspectRatio: 100 / 80,
