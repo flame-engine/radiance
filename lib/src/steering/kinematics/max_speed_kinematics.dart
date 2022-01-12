@@ -1,5 +1,6 @@
 import 'package:vector_math/vector_math_64.dart';
 
+import '../behaviors/flee.dart';
 import '../behaviors/seek.dart';
 import 'basic_kinematics.dart';
 
@@ -36,5 +37,9 @@ class MaxSpeedKinematics extends BasicKinematics {
   }
 
   @override
-  Seek seek(Vector2 point) => SeekAtMaxSpeed(owner: own, point: point);
+  Seek seek(Vector2 target) => SeekAtMaxSpeed(owner: own, point: target);
+
+  @override
+  Flee flee(List<Vector2> targets) =>
+      FleeAtMaxSpeed(owner: own, targets: targets);
 }
