@@ -1,6 +1,6 @@
 import 'package:vector_math/vector_math_64.dart' show Vector2;
 
-import '../../utils.dart';
+import '../../options/angles.dart';
 import '../behavior.dart';
 import '../kinematics/max_acceleration_kinematics.dart';
 import '../kinematics/max_speed_kinematics.dart';
