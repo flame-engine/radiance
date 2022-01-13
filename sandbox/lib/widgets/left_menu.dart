@@ -9,31 +9,31 @@ class LeftMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final n = kPresets.length;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Column(
         children: [
+          // "Presets" header
           SizedBox(
             width: double.infinity,
             child: Text(
               'Presets',
               textAlign: TextAlign.left,
               style: Theme.of(context).primaryTextTheme.headline6,
-              // TextStyle(color: Theme.of(context).primaryColor,
-              //   fontSize: Theme.of(context).primaryTextTheme.
-              // ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: DefaultTextStyle(
               style: const TextStyle(
                 color: Color(0xFFBBBBBB),
                 fontSize: 14,
               ),
               child: Column(
-                children: List.generate(n, (i) => _ListItem(i, app)),
+                children: List.generate(
+                  Presets.numGroups,
+                  (i) => _ListHeader(app, i),
+                ),
               ),
             ),
           ),
@@ -43,11 +43,68 @@ class LeftMenu extends StatelessWidget {
   }
 }
 
-class _ListItem extends StatefulWidget {
-  const _ListItem(this.index, this.app);
+class _ListHeader extends StatelessWidget {
+  const _ListHeader(this.app, this.groupIndex);
 
-  final int index;
   final SandboxState app;
+  final int groupIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    final title = Presets.group(groupIndex).name;
+    final isOpen = app.openGroups[groupIndex];
+    Widget result = GestureDetector(
+      onTap: _handleTap,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Row(
+          children: [
+            Icon(isOpen ? Icons.arrow_drop_down : Icons.arrow_right),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (isOpen) {
+      final n = Presets.numItemsInGroup(groupIndex);
+      result = Column(
+        children: [
+          result,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 0, 10),
+            child: Column(
+              children: [
+                for (var itemIndex = 0; itemIndex < n; itemIndex++)
+                  _ListItem(groupIndex, itemIndex, app)
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+    return result;
+  }
+
+  void _handleTap() {
+    app.toggleGroup(groupIndex);
+  }
+}
+
+class _ListItem extends StatefulWidget {
+  const _ListItem(this.groupIndex, this.itemIndex, this.app);
+
+  final int groupIndex;
+  final int itemIndex;
+  final SandboxState app;
+
+  bool get isCurrent {
+    return app.currentGroup == groupIndex && app.currentPreset == itemIndex;
+  }
 
   @override
   State createState() => _ListItemState();
@@ -55,27 +112,32 @@ class _ListItem extends StatefulWidget {
 
 class _ListItemState extends State<_ListItem> {
   static const styleWhenCurrent = TextStyle(
-    fontWeight: FontWeight.bold,
     color: Colors.white,
+    fontSize: 12,
+  );
+  static const styleNormal = TextStyle(
+    fontSize: 12,
   );
   bool _hover = false;
 
   @override
   Widget build(BuildContext context) {
-    final isCurrent = widget.app.currentPreset == widget.index;
-    return MouseRegion(
-      onEnter: _mouseEnter,
-      onExit: _mouseLeave,
-      cursor: SystemMouseCursors.click,
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(
-          color: Color.fromRGBO(255, 255, 255, _hover ? 0.1 : 0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-            child: Text(
-              widget.app.currentScene.name,
-              style: isCurrent ? styleWhenCurrent : null,
+    return GestureDetector(
+      onTap: _handleTap,
+      child: MouseRegion(
+        onEnter: _mouseEnter,
+        onExit: _mouseLeave,
+        cursor: SystemMouseCursors.click,
+        child: SizedBox(
+          width: double.infinity,
+          child: Container(
+            color: Color.fromRGBO(255, 255, 255, _hover ? 0.1 : 0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+              child: Text(
+                Presets.sceneName(widget.groupIndex, widget.itemIndex),
+                style: widget.isCurrent ? styleWhenCurrent : styleNormal,
+              ),
             ),
           ),
         ),
@@ -89,5 +151,9 @@ class _ListItemState extends State<_ListItem> {
 
   void _mouseLeave(PointerEvent details) {
     setState(() => _hover = false);
+  }
+
+  void _handleTap() {
+    widget.app.selectPreset(widget.groupIndex, widget.itemIndex);
   }
 }

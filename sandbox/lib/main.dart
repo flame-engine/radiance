@@ -38,14 +38,45 @@ class _MyApp extends StatefulWidget {
   State createState() => SandboxState();
 }
 
+/// Main state for the entire app.
 class SandboxState extends State<_MyApp> {
   SandboxState() {
-    currentScene = kPresets[currentPreset]();
+    // Initially, we will show first preset in the first group
+    currentGroup = 0;
+    currentPreset = 0;
+    openGroups[currentGroup!] = true;
+    currentScene = Presets.makeScene(0, 0);
   }
 
-  int currentPreset = 0;
-  EngineState engineState = EngineState.running;
+  /// Boolean indicators for which of the preset groups in the LHS menu are
+  /// currently expanded, and which are folded.
+  List<bool> openGroups = List.filled(Presets.numGroups, false);
+
+  /// Index of the group in the left-side menu where the current preset belongs
+  /// to. If there is no preset selected, this will be `null`.
+  int? currentGroup;
+
+  /// Index of the selected preset within the [currentGroup]. If there is no
+  /// preset selected, this will be `null`.
+  int? currentPreset;
+
   late Scene currentScene;
+
+  EngineState engineState = EngineState.running;
+
+  void selectPreset(int groupIndex, int itemIndex) {
+    setState(() {
+      currentGroup = groupIndex;
+      currentPreset = itemIndex;
+      currentScene = Presets.makeScene(groupIndex, itemIndex);
+    });
+  }
+
+  void toggleGroup(int groupIndex) {
+    setState(() {
+      openGroups[groupIndex] = !openGroups[groupIndex];
+    });
+  }
 
   void startEngine() {
     setState(() => engineState = EngineState.running);
@@ -58,7 +89,9 @@ class SandboxState extends State<_MyApp> {
   void stopEngine() {
     setState(() {
       engineState = EngineState.stopped;
-      currentScene = kPresets[currentPreset]();
+      if (currentGroup != null && currentPreset != null) {
+        selectPreset(currentGroup!, currentPreset!);
+      }
     });
   }
 
