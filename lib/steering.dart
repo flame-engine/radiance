@@ -9,9 +9,9 @@ export 'src/options/angles.dart' show angleToVector, vectorToAngle;
 // Kinematics implementations
 export 'src/steering/kinematics/basic_kinematics.dart' show BasicKinematics;
 export 'src/steering/kinematics/max_acceleration_kinematics.dart'
-    show MaxAccelerationKinematics;
+    show MaxAccelerationKinematics, HeavyKinematics;
 export 'src/steering/kinematics/max_speed_kinematics.dart'
-    show MaxSpeedKinematics;
+    show MaxSpeedKinematics, LightKinematics;
 
 // Behaviors
 export 'src/steering/behaviors/flee.dart' show Flee;
