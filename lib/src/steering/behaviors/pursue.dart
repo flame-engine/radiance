@@ -22,15 +22,21 @@ class Pursue extends Behavior {
     required this.target,
     this.predictionTime = 3.0,
   })  : assert(predictionTime >= 0, 'predictionTime cannot be negative'),
-        _seekPoint = Vector2.zero(),
         super(owner) {
-    _seek = Seek(owner: owner, point: _seekPoint);
+    _seek = Seek(owner: owner, point: Vector2.zero());
   }
 
+  /// An entity that the pursuer is trying to catch, a quarry, an evader.
   final Steerable target;
-  final Vector2 _seekPoint;
+
+  /// Helper behavior used to implement Pursue: we estimate the target's future
+  /// position and then Seek to that position using this behavior.
   late final Seek _seek;
 
+  /// The prediction horizon for the target's future position. We will attempt
+  /// to predict where the target will be after this amount of time. Set this
+  /// to smaller values when dealing with targets whose behavior is very
+  /// chaotic, or to reduce the pursuer's intelligence.
   double predictionTime;
 
   @override
@@ -42,13 +48,13 @@ class Pursue extends Behavior {
     if (sqrSpeed > 0) {
       final sqrDistance = (own.position - target.position).length2;
       final sqrPredictionTime = predictionTime * predictionTime;
-      if (sqrSpeed * sqrPredictionTime < sqrDistance) {
+      if (sqrSpeed * sqrPredictionTime > sqrDistance) {
         actualPredictionTime = sqrt(sqrDistance / sqrSpeed);
       }
     }
     final predictedPosition =
         target.position + target.velocity * actualPredictionTime;
-    _seekPoint.setFrom(predictedPosition);
+    _seek.target.setFrom(predictedPosition);
     _seek.update(dt);
   }
 }

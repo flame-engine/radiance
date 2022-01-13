@@ -51,3 +51,5 @@ class MaxAccelerationKinematics extends Kinematics {
     return FleeForMaxAcceleration(owner: own, targets: targets);
   }
 }
+
+typedef HeavyKinematics = MaxAccelerationKinematics;

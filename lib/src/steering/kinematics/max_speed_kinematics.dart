@@ -43,3 +43,5 @@ class MaxSpeedKinematics extends BasicKinematics {
   Flee flee(List<Vector2> targets) =>
       FleeAtMaxSpeed(owner: own, targets: targets);
 }
+
+typedef LightKinematics = MaxSpeedKinematics;
