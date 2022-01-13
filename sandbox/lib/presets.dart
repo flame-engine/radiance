@@ -53,6 +53,7 @@ class _PresetGroup {
 
 class _PresetItem {
   const _PresetItem(this.name, this.maker);
+
   final String name;
   final Scene Function() maker;
 

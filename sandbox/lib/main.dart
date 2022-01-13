@@ -40,7 +40,7 @@ class _MyApp extends StatefulWidget {
 
 /// Main state for the entire app.
 class SandboxState extends State<_MyApp> {
-  SandboxState(){
+  SandboxState() {
     // Initially, we will show first preset in the first group
     currentGroup = 0;
     currentPreset = 0;
@@ -69,6 +69,12 @@ class SandboxState extends State<_MyApp> {
       currentGroup = groupIndex;
       currentPreset = itemIndex;
       currentScene = Presets.makeScene(groupIndex, itemIndex);
+    });
+  }
+
+  void toggleGroup(int groupIndex) {
+    setState(() {
+      openGroups[groupIndex] = !openGroups[groupIndex];
     });
   }
 

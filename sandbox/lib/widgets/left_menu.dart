@@ -13,6 +13,7 @@ class LeftMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Column(
         children: [
+          // "Presets" header
           SizedBox(
             width: double.infinity,
             child: Text(
@@ -22,7 +23,7 @@ class LeftMenu extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: DefaultTextStyle(
               style: const TextStyle(
                 color: Color(0xFFBBBBBB),
@@ -30,7 +31,8 @@ class LeftMenu extends StatelessWidget {
               ),
               child: Column(
                 children: List.generate(
-                    Presets.numGroups, (i) => _ListHeader(app, i),
+                  Presets.numGroups,
+                  (i) => _ListHeader(app, i),
                 ),
               ),
             ),
@@ -51,13 +53,21 @@ class _ListHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = Presets.group(groupIndex).name;
     final isOpen = app.openGroups[groupIndex];
-    Widget result = MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: Row(
-        children: [
-          Icon(isOpen ? Icons.arrow_right : Icons.arrow_drop_down),
-          Text(title),
-        ],
+    Widget result = GestureDetector(
+      onTap: _handleTap,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Row(
+          children: [
+            Icon(isOpen ? Icons.arrow_drop_down : Icons.arrow_right),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
     if (isOpen) {
@@ -66,12 +76,27 @@ class _ListHeader extends StatelessWidget {
       result = Column(
         children: [
           result,
-          for (var i = 0; i < n; i++)
-            _ListItem(groupIndex, i, groupIsCurrent && i == app.currentPreset)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 0, 10),
+            child: Column(
+              children: [
+                for (var itemIndex = 0; itemIndex < n; itemIndex++)
+                  _ListItem(
+                    groupIndex,
+                    itemIndex,
+                    groupIsCurrent && itemIndex == app.currentPreset,
+                  )
+              ],
+            ),
+          ),
         ],
       );
     }
     return result;
+  }
+
+  void _handleTap() {
+    app.toggleGroup(groupIndex);
   }
 }
 
@@ -88,8 +113,11 @@ class _ListItem extends StatefulWidget {
 
 class _ListItemState extends State<_ListItem> {
   static const styleWhenCurrent = TextStyle(
-    fontWeight: FontWeight.bold,
     color: Colors.white,
+    fontSize: 12,
+  );
+  static const styleNormal = TextStyle(
+    fontSize: 12,
   );
   bool _hover = false;
 
@@ -107,7 +135,7 @@ class _ListItemState extends State<_ListItem> {
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
             child: Text(
               Presets.sceneName(widget.groupIndex, widget.itemIndex),
-              style: widget.isCurrent ? styleWhenCurrent : null,
+              style: widget.isCurrent ? styleWhenCurrent : styleNormal,
             ),
           ),
         ),
