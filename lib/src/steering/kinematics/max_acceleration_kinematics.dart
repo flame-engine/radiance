@@ -15,14 +15,28 @@ import '../kinematics.dart';
 /// reasonably looking behaviors and can be used in a variety of situations.
 class MaxAccelerationKinematics extends Kinematics {
   MaxAccelerationKinematics({
-    required this.maxSpeed,
-    required this.maxAcceleration,
-  })  : assert(maxSpeed > 0),
-        assert(maxAcceleration >= 0),
+    required double maxSpeed,
+    required double maxAcceleration,
+  })  : assert(maxSpeed > 0, 'maxSpeed must be positive'),
+        assert(maxAcceleration > 0, 'maxAcceleration must be positive'),
+        _maxSpeed = maxSpeed,
+        _maxAcceleration = maxAcceleration,
         _acceleration = Vector2.zero();
 
-  double maxSpeed;
-  double maxAcceleration;
+  double get maxSpeed => _maxSpeed;
+  double _maxSpeed;
+  set maxSpeed(double value) {
+    assert(value > 0, 'maxSpeed must be positive');
+    _maxSpeed = value;
+  }
+
+  double get maxAcceleration => _maxAcceleration;
+  double _maxAcceleration;
+  set maxAcceleration(double value) {
+    assert(value > 0, 'maxAcceleration must be positive');
+    _maxAcceleration = value;
+  }
+
   final Vector2 _acceleration;
 
   void setAcceleration(Vector2 value) {
@@ -51,3 +65,5 @@ class MaxAccelerationKinematics extends Kinematics {
     return FleeForMaxAcceleration(owner: own, targets: targets);
   }
 }
+
+typedef HeavyKinematics = MaxAccelerationKinematics;

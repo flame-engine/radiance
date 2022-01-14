@@ -1,10 +1,10 @@
 import 'package:radiance/steering.dart';
-import 'package:test/test.dart';
+import 'package:test/test.dart' hide throws;
 import 'package:vector_math/vector_math_64.dart';
 
 import '../../utils/close_to_vector.dart';
 import '../../utils/simple_steerable.dart';
-import '../../utils/throws_assertion_error.dart';
+import '../../utils/throws.dart';
 
 void main() {
   group('Flee', () {
@@ -13,7 +13,7 @@ void main() {
         final agent = SimpleSteerable(kinematics: MaxSpeedKinematics(10));
         expect(
           () => Flee(owner: agent, targets: []),
-          throwsAssertionError('The list of targets to Flee cannot be empty'),
+          throws<AssertionError>('The list of targets to Flee cannot be empty'),
         );
       });
 

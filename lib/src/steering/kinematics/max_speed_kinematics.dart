@@ -11,10 +11,15 @@ import 'basic_kinematics.dart';
 /// Use this for very small creatures like ants, or in situations where physical
 /// realism is not needed.
 class MaxSpeedKinematics extends BasicKinematics {
-  MaxSpeedKinematics(this.maxSpeed)
-      : assert(maxSpeed > 0, 'maxSpeed must be positive');
+  MaxSpeedKinematics(this._maxSpeed)
+      : assert(_maxSpeed > 0, 'maxSpeed must be positive');
 
-  double maxSpeed;
+  double get maxSpeed => _maxSpeed;
+  double _maxSpeed;
+  set maxSpeed(double value) {
+    assert(value > 0, 'maxSpeed must be positive');
+    _maxSpeed = value;
+  }
 
   void stop() {
     own.velocity.setZero();
@@ -43,3 +48,5 @@ class MaxSpeedKinematics extends BasicKinematics {
   Flee flee(List<Vector2> targets) =>
       FleeAtMaxSpeed(owner: own, targets: targets);
 }
+
+typedef LightKinematics = MaxSpeedKinematics;
