@@ -20,7 +20,7 @@ class MaxAccelerationKinematics extends Kinematics {
   })  : assert(maxSpeed > 0, 'maxSpeed must be positive'),
         assert(maxAcceleration > 0, 'maxAcceleration must be positive'),
         _maxSpeed = maxSpeed,
-  _maxAcceleration = maxAcceleration,
+        _maxAcceleration = maxAcceleration,
         _acceleration = Vector2.zero();
 
   double get maxSpeed => _maxSpeed;

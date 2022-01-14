@@ -19,7 +19,7 @@ Matcher throws<E extends Error>([String? message]) {
   var typeMatcher = isA<E>();
   if (message != null) {
     typeMatcher = typeMatcher.having(
-      (dynamic e) => e.message,
+      (dynamic e) => e.message, // ignore: avoid_dynamic_calls
       'message',
       message,
     );

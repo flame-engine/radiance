@@ -1,4 +1,3 @@
-
 import 'package:radiance/src/steering/kinematics/basic_kinematics.dart';
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math_64.dart';
