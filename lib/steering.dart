@@ -15,4 +15,5 @@ export 'src/steering/kinematics/max_speed_kinematics.dart'
 
 // Behaviors
 export 'src/steering/behaviors/flee.dart' show Flee;
+export 'src/steering/behaviors/pursue.dart' show Pursue;
 export 'src/steering/behaviors/seek.dart' show Seek;
