@@ -4,7 +4,7 @@ import '../behaviors/flee.dart';
 import '../behaviors/seek.dart';
 import '../kinematics.dart';
 
-/// [MaxAccelerationKinematics] describes an agent who can move in any direction
+/// [HeavyKinematics] describes an agent who can move in any direction
 /// with speed up to `maxSpeed`, and change their velocity with acceleration
 /// not exceeding `maxAcceleration`. This acceleration can be applied equally
 /// in all directions, regardless of the direction where the character is
@@ -13,8 +13,8 @@ import '../kinematics.dart';
 /// This kinematics model is described by Craig Reynolds in his 1999 report on
 /// steering behaviors, and is considered "standard" for game AI. It produces
 /// reasonably looking behaviors and can be used in a variety of situations.
-class MaxAccelerationKinematics extends Kinematics {
-  MaxAccelerationKinematics({
+class HeavyKinematics extends Kinematics {
+  HeavyKinematics({
     required double maxSpeed,
     required double maxAcceleration,
   })  : assert(maxSpeed > 0, 'maxSpeed must be positive'),
@@ -58,12 +58,10 @@ class MaxAccelerationKinematics extends Kinematics {
   }
 
   @override
-  Seek seek(Vector2 point) => SeekForMaxAcceleration(owner: own, point: point);
+  Seek seek(Vector2 point) => SeekHeavy(owner: own, point: point);
 
   @override
   Flee flee(List<Vector2> targets) {
-    return FleeForMaxAcceleration(owner: own, targets: targets);
+    return FleeHeavy(owner: own, targets: targets);
   }
 }
-
-typedef HeavyKinematics = MaxAccelerationKinematics;
