@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:vector_math/vector_math_64.dart';
 
 import '../behavior.dart';
-import '../kinematics/max_acceleration_kinematics.dart';
-import '../kinematics/max_speed_kinematics.dart';
+import '../kinematics/heavy_kinematics.dart';
+import '../kinematics/light_kinematics.dart';
 import '../steerable.dart';
 
 /// [Seek] behavior acts to move the agent towards the specified static point.
@@ -32,15 +32,15 @@ abstract class Seek extends Behavior {
   final Vector2 target;
 }
 
-/// [Seek] behavior for objects that have [MaxSpeedKinematics].
-class SeekAtMaxSpeed extends Seek {
-  SeekAtMaxSpeed({required Steerable owner, required Vector2 point})
-      : assert(owner.kinematics is MaxSpeedKinematics),
+/// [Seek] behavior for objects that have [LightKinematics].
+class SeekLight extends Seek {
+  SeekLight({required Steerable owner, required Vector2 point})
+      : assert(owner.kinematics is LightKinematics),
         super._(owner, point);
 
   @override
   void update(double dt) {
-    final kinematics = own.kinematics as MaxSpeedKinematics;
+    final kinematics = own.kinematics as LightKinematics;
     final offset = target - own.position;
     final distance = offset.normalize();
     var maxSpeed = kinematics.maxSpeed;
@@ -51,15 +51,15 @@ class SeekAtMaxSpeed extends Seek {
   }
 }
 
-/// [Seek] behavior for objects with [MaxAccelerationKinematics].
-class SeekForMaxAcceleration extends Seek {
-  SeekForMaxAcceleration({required Steerable owner, required Vector2 point})
-      : assert(owner.kinematics is MaxAccelerationKinematics),
+/// [Seek] behavior for objects with [HeavyKinematics].
+class SeekHeavy extends Seek {
+  SeekHeavy({required Steerable owner, required Vector2 point})
+      : assert(owner.kinematics is HeavyKinematics),
         super._(owner, point);
 
   @override
   void update(double dt) {
-    final kinematics = own.kinematics as MaxAccelerationKinematics;
+    final kinematics = own.kinematics as HeavyKinematics;
     final offset = target - own.position;
     final targetVelocity = offset..length = kinematics.maxSpeed;
     final velocityDelta = targetVelocity - own.velocity;

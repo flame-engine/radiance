@@ -6,8 +6,8 @@ import 'package:vector_math/vector_math_64.dart';
 
 import 'entity.dart';
 
-class MaxAccelerationEntity extends Entity {
-  MaxAccelerationEntity({
+class HeavyEntity extends Entity {
+  HeavyEntity({
     Vector2? position,
     Vector2? velocity,
     required double maxSpeed,
@@ -17,7 +17,7 @@ class MaxAccelerationEntity extends Entity {
           position: position,
           size: size,
           velocity: velocity,
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: maxSpeed,
             maxAcceleration: maxAcceleration,
           ),

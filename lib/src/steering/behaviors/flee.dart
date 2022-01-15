@@ -2,8 +2,8 @@ import 'package:vector_math/vector_math_64.dart' show Vector2;
 
 import '../../options/angles.dart';
 import '../behavior.dart';
-import '../kinematics/max_acceleration_kinematics.dart';
-import '../kinematics/max_speed_kinematics.dart';
+import '../kinematics/heavy_kinematics.dart';
+import '../kinematics/light_kinematics.dart';
 import '../steerable.dart';
 
 /// [Flee] behavior forces the owner to move as far away and as fast as possible
@@ -58,31 +58,31 @@ abstract class Flee extends Behavior {
   }
 }
 
-/// [Flee] behavior for [MaxSpeedKinematics].
-class FleeAtMaxSpeed extends Flee {
-  FleeAtMaxSpeed({required Steerable owner, required List<Vector2> targets})
-      : assert(owner.kinematics is MaxSpeedKinematics),
+/// [Flee] behavior for [LightKinematics].
+class FleeLight extends Flee {
+  FleeLight({required Steerable owner, required List<Vector2> targets})
+      : assert(owner.kinematics is LightKinematics),
         super._(owner, targets);
 
   @override
   void update(double dt) {
-    final kinematics = own.kinematics as MaxSpeedKinematics;
+    final kinematics = own.kinematics as LightKinematics;
     final steering = fleeDirection..scale(kinematics.maxSpeed);
     kinematics.setVelocity(steering);
   }
 }
 
-/// [Flee] behavior for objects with [MaxAccelerationKinematics].
-class FleeForMaxAcceleration extends Flee {
-  FleeForMaxAcceleration({
+/// [Flee] behavior for objects with [HeavyKinematics].
+class FleeHeavy extends Flee {
+  FleeHeavy({
     required Steerable owner,
     required List<Vector2> targets,
-  })  : assert(owner.kinematics is MaxAccelerationKinematics),
+  })  : assert(owner.kinematics is HeavyKinematics),
         super._(owner, targets);
 
   @override
   void update(double dt) {
-    final kinematics = own.kinematics as MaxAccelerationKinematics;
+    final kinematics = own.kinematics as HeavyKinematics;
     final steering = fleeDirection..scale(kinematics.maxAcceleration);
     kinematics.setAcceleration(steering);
   }

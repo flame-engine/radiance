@@ -10,7 +10,7 @@ void main() {
   group('Flee', () {
     group('common', () {
       test('errors', () {
-        final agent = SimpleSteerable(kinematics: MaxSpeedKinematics(10));
+        final agent = SimpleSteerable(kinematics: LightKinematics(10));
         expect(
           () => Flee(owner: agent, targets: []),
           throws<AssertionError>('The list of targets to Flee cannot be empty'),
@@ -23,7 +23,7 @@ void main() {
         List<Vector2> targets, {
         double orientation = 0,
       }) {
-        final agent = SimpleSteerable(kinematics: MaxSpeedKinematics(10));
+        final agent = SimpleSteerable(kinematics: LightKinematics(10));
         agent.angle = orientation;
         final behavior = Flee(owner: agent, targets: targets);
         expect(agent.position, closeToVector(0, 0));
@@ -60,7 +60,7 @@ void main() {
 
     group(':MaxSpeedKinematics', () {
       test('properties', () {
-        final agent = SimpleSteerable(kinematics: MaxSpeedKinematics(10));
+        final agent = SimpleSteerable(kinematics: LightKinematics(10));
         final behavior = Flee(owner: agent, targets: [Vector2(20, 10)]);
         expect(behavior.own, agent);
         expect(behavior.targets.length, 1);
@@ -71,7 +71,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(5, 0),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxSpeedKinematics(10),
+          kinematics: LightKinematics(10),
           duration: 10,
         );
         expect(distance, closeTo(105, 0.1));
@@ -81,7 +81,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(12, -10),
           initialVelocity: Vector2(3, 5),
-          kinematics: MaxSpeedKinematics(10),
+          kinematics: LightKinematics(10),
         );
         expect(distance, closeTo(1015.62, 0.01));
       });
@@ -90,7 +90,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(0, 0.01),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxSpeedKinematics(10),
+          kinematics: LightKinematics(10),
           targets: [Vector2(10, 0), Vector2(-10, 3), Vector2(-10, -3)],
         );
         expect(distance, closeTo(999.71, 0.01));
@@ -101,7 +101,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(0.02, 0.01),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxSpeedKinematics(10),
+          kinematics: LightKinematics(10),
           targets: [
             Vector2(10, 0),
             Vector2(-10, 0),
@@ -122,7 +122,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2.zero(),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxSpeedKinematics(10),
+          kinematics: LightKinematics(10),
           targets: [Vector2(10, 0), Vector2(-10, 4), Vector2(-10, -4)],
         );
         expect(distance, closeTo(6.33, 0.01));
@@ -132,7 +132,7 @@ void main() {
     group(':MaxAccelerationKinematics', () {
       test('properties', () {
         final agent = SimpleSteerable(
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: 20,
             maxAcceleration: 15,
           ),
@@ -151,7 +151,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(x0, 0),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: vMax,
             maxAcceleration: aMax,
           ),
@@ -167,7 +167,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(12, -10),
           initialVelocity: Vector2(3, 5),
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: 10,
             maxAcceleration: 5,
           ),
@@ -179,7 +179,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(0, 0.01),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: 10,
             maxAcceleration: 5,
           ),
@@ -192,7 +192,7 @@ void main() {
         final distance = fleeDistance(
           initialPosition: Vector2(0.02, 0.01),
           initialVelocity: Vector2.zero(),
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: 10,
             maxAcceleration: 5,
           ),

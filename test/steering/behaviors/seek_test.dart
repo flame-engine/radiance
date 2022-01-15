@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:radiance/src/steering/behaviors/seek.dart';
-import 'package:radiance/src/steering/kinematics/max_acceleration_kinematics.dart';
-import 'package:radiance/src/steering/kinematics/max_speed_kinematics.dart';
+import 'package:radiance/src/steering/kinematics/heavy_kinematics.dart';
+import 'package:radiance/src/steering/kinematics/light_kinematics.dart';
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math_64.dart';
 
@@ -14,7 +14,7 @@ void main() {
   group('Seek', () {
     group(':MaxSpeedKinematics', () {
       test('properties', () {
-        final agent = SimpleSteerable(kinematics: MaxSpeedKinematics(10));
+        final agent = SimpleSteerable(kinematics: LightKinematics(10));
         final behavior = Seek(owner: agent, point: Vector2(20, 50));
 
         expect(behavior.own, agent);
@@ -36,7 +36,7 @@ void main() {
         final seeker = SimpleSteerable(
           velocity: Vector2.random() * maxSpeed,
           position: origin,
-          kinematics: MaxSpeedKinematics(maxSpeed),
+          kinematics: LightKinematics(maxSpeed),
         );
         seeker.behavior = Seek(owner: seeker, point: target);
 
@@ -56,7 +56,7 @@ void main() {
     group(':MaxAccelerationKinematics', () {
       test('properties', () {
         final agent = SimpleSteerable(
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: 10,
             maxAcceleration: 20,
           ),
@@ -76,7 +76,7 @@ void main() {
         final agent = SimpleSteerable(
           position: Vector2.zero(),
           velocity: Vector2.zero(),
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: 1000,
             maxAcceleration: acceleration,
           ),
@@ -103,7 +103,7 @@ void main() {
         final seeker = SimpleSteerable(
           velocity: Vector2.random() * maxSpeed,
           position: origin,
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: maxSpeed,
             maxAcceleration: acceleration,
           ),
@@ -134,7 +134,7 @@ void main() {
         final seeker = SimpleSteerable(
           velocity: initialVelocity,
           position: initialPosition,
-          kinematics: MaxAccelerationKinematics(
+          kinematics: HeavyKinematics(
             maxSpeed: maxSpeed,
             maxAcceleration: maxAcceleration,
           ),

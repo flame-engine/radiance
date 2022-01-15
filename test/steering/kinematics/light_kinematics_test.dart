@@ -76,13 +76,13 @@ void main() {
     test('seek', () {
       final agent = SimpleSteerable(kinematics: LightKinematics(10));
       final seek = agent.kinematics.seek(Vector2.zero());
-      expect(seek, isA<SeekAtMaxSpeed>());
+      expect(seek, isA<SeekLight>());
     });
 
     test('flee', () {
       final agent = SimpleSteerable(kinematics: LightKinematics(10));
       final flee = agent.kinematics.flee([Vector2.zero()]);
-      expect(flee, isA<FleeAtMaxSpeed>());
+      expect(flee, isA<FleeLight>());
     });
   });
 }
