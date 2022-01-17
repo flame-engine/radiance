@@ -7,6 +7,13 @@ import '../../utils/simple_steerable.dart';
 
 void main() {
   group('BasicKinematics', () {
+    test('clone', () {
+      final kinematics = BasicKinematics();
+      final copy = kinematics.clone();
+      expect(copy, isA<BasicKinematics>());
+      expect(copy == kinematics, false);
+    });
+
     test('update', () {
       final agent = SimpleSteerable(
         position: Vector2(5, 10),

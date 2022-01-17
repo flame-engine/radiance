@@ -17,6 +17,13 @@ void main() {
       expect(kinematics.maxSpeed, 10);
     });
 
+    test('clone', () {
+      final kinematics = LightKinematics(23);
+      final copy = kinematics.clone();
+      expect(copy, isA<LightKinematics>());
+      expect(copy.maxSpeed, 23);
+    });
+
     test('speed errors', () {
       expect(
         () => LightKinematics(0),

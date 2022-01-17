@@ -48,6 +48,7 @@ class HeavyEntity extends Entity {
     canvas.restore();
   }
 
-  @override
-  void renderVectors(Canvas canvas) {}
+  List<Vector2> get vectors {
+    return [position, velocity, (kinematics as HeavyKinematics).acceleration];
+  }
 }

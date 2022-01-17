@@ -41,7 +41,6 @@ abstract class Entity implements Steerable {
   Behavior? behavior;
 
   void render(Canvas canvas);
-  void renderVectors(Canvas canvas);
 
   void update(double dt) {
     behavior?.update(dt);

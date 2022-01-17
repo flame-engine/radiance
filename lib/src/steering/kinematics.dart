@@ -20,6 +20,9 @@ import 'steerable.dart';
 /// The method `handleAttach()` must be called by the user when the kinematics
 /// object is attached to a concrete [Steerable].
 abstract class Kinematics {
+  /// Returns a copy of this kinematics object, except for the [own] field.
+  Kinematics clone();
+
   /// Reference to the object being steered.
   ///
   /// This variable will be set within the `handleAttach()` method, and will

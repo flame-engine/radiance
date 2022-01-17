@@ -7,7 +7,6 @@ class Scene {
 
   final String name;
   final List<Entity> entities = [];
-  final bool showVectors = true;
 
   void add(Entity e) => entities.add(e);
 
@@ -17,8 +16,5 @@ class Scene {
 
   void render(Canvas canvas) {
     entities.forEach((e) => e.render(canvas));
-    if (showVectors) {
-      entities.forEach((e) => e.renderVectors(canvas));
-    }
   }
 }
