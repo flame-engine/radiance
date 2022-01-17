@@ -6,9 +6,10 @@ import 'entities/static_target_entity.dart';
 import 'scene.dart';
 
 class Presets {
-  static const _presets = [
+  static final _presets = [
     _PresetGroup('Seek', [
-      _PresetItem('Heavy', _seek1),
+      // _PresetItem('Heavy', _seek1),
+      _seek1(),
     ]),
   ];
 
@@ -17,7 +18,7 @@ class Presets {
   static int numItemsInGroup(int i) => _presets[i].items.length;
 
   static Scene makeScene(int groupIndex, int sceneIndex) {
-    return _presets[groupIndex].items[sceneIndex].make();
+    return _presets[groupIndex].items[sceneIndex];
   }
 
   static String sceneName(int groupIndex, int sceneIndex) {
@@ -48,7 +49,7 @@ class _PresetGroup {
   const _PresetGroup(this.name, this.items);
 
   final String name;
-  final List<_PresetItem> items;
+  final List<Scene> items;
 }
 
 class _PresetItem {
