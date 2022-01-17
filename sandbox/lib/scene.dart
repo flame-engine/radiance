@@ -15,6 +15,7 @@ class Scene {
 
   void add(Entity e) {
     _originalEntities.add(e);
+    _runtimeEntities = null;
   }
 
   void update(double dt) {
