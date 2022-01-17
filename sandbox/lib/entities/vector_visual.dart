@@ -5,7 +5,7 @@ import 'package:vector_math/vector_math_64.dart';
 
 class VectorVisual {
   VectorVisual(this.origin, this.vector, this.styleIndex)
-    : assert(styleIndex < lineStyles.length);
+      : assert(styleIndex < lineStyles.length);
 
   final Vector2 origin;
   final Vector2 vector;
@@ -22,8 +22,8 @@ class VectorVisual {
       ..color = const Color(0xff5ed9ff),
   ];
   static List<Paint> arrowStyles = [
-    Paint() ..color = const Color(0xffffc655),
-    Paint() ..color = const Color(0xff5ed9ff),
+    Paint()..color = const Color(0xffffc655),
+    Paint()..color = const Color(0xff5ed9ff),
   ];
   static const arrowLength = 3.0;
 
