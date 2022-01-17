@@ -3,10 +3,9 @@ import 'dart:ui';
 import 'package:vector_math/vector_math_64.dart' hide Vector;
 
 import 'entity.dart';
-import 'vector_visual.dart';
 
-class StaticTargetEntity extends Entity {
-  StaticTargetEntity({Vector2? position, double size = 5})
+class StaticEntity extends Entity {
+  StaticEntity({Vector2? position, double size = 5})
       : super(position: position, size: size) {
     final a = size / 6;
     path = Path()
@@ -28,6 +27,11 @@ class StaticTargetEntity extends Entity {
   late final Paint paint;
 
   @override
+  StaticEntity clone() {
+    return StaticEntity(position: position, size: size);
+  }
+
+  @override
   void render(Canvas canvas) {
     canvas.save();
     canvas.translate(position.x, position.y);
@@ -36,7 +40,5 @@ class StaticTargetEntity extends Entity {
   }
 
   @override
-  void renderVectors(Canvas canvas) {
-    VectorVisual(position, velocity).render(canvas);
-  }
+  List<Vector2> get vectors => [];
 }

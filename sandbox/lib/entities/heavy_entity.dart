@@ -39,6 +39,17 @@ class HeavyEntity extends Entity {
   late final Paint outlinePaint;
 
   @override
+  HeavyEntity clone() {
+    return HeavyEntity(
+      position: position,
+      velocity: velocity,
+      maxSpeed: (kinematics as HeavyKinematics).maxSpeed,
+      maxAcceleration: (kinematics as HeavyKinematics).maxAcceleration,
+      size: size,
+    );
+  }
+
+  @override
   void render(Canvas canvas) {
     canvas.save();
     canvas.translate(position.x, position.y);
@@ -49,5 +60,7 @@ class HeavyEntity extends Entity {
   }
 
   @override
-  void renderVectors(Canvas canvas) {}
+  List<Vector2> get vectors {
+    return [velocity, (kinematics as HeavyKinematics).acceleration];
+  }
 }

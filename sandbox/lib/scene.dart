@@ -24,8 +24,18 @@ class Scene {
 
   void render(Canvas canvas) {
     entities.forEach((e) => e.render(canvas));
-    if (showVectors) {
-      entities.forEach((e) => e.renderVectors(canvas));
+    vectors.forEach((v) => v.render(canvas));
+  }
+
+  void toggleVectors(bool on) {
+    vectors.clear();
+    if (on) {
+      for (final entity in entities) {
+        final entityVectors = entity.vectors;
+        for (var i = 0; i < entityVectors.length; i++) {
+          vectors.add(VectorVisual(entity.position, entityVectors[i], i));
+        }
+      }
     }
   }
 }
