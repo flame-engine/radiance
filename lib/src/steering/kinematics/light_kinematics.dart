@@ -21,6 +21,9 @@ class LightKinematics extends BasicKinematics {
     _maxSpeed = value;
   }
 
+  @override
+  LightKinematics clone() => LightKinematics(_maxSpeed);
+
   void stop() {
     own.velocity.setZero();
   }

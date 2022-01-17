@@ -87,15 +87,8 @@ class _ScenePainter extends CustomPainter {
     for (var i = -100.0; i <= 100.0; i += 20.0) {
       canvas.drawLine(Offset(i, -80), Offset(i, 80), gridPaint);
     }
-    _paintScene(canvas);
+    app.currentScene.render(canvas);
     canvas.restore();
-  }
-
-  void _paintScene(Canvas canvas) {
-    final scene = app.currentScene;
-    for (final entity in scene.entities) {
-      entity.render(canvas);
-    }
   }
 
   @override

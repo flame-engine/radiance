@@ -37,8 +37,17 @@ class HeavyKinematics extends Kinematics {
     _maxAcceleration = value;
   }
 
-  final Vector2 _acceleration;
+  @override
+  HeavyKinematics clone() {
+    return HeavyKinematics(
+      maxSpeed: _maxSpeed,
+      maxAcceleration: _maxAcceleration,
+    )..setAcceleration(_acceleration);
+  }
 
+  /// Acceleration that will be applied to the owner on the next tick.
+  Vector2 get acceleration => _acceleration;
+  final Vector2 _acceleration;
   void setAcceleration(Vector2 value) {
     assert(
       value.length2 <= maxAcceleration * maxAcceleration * (1 + 1e-8),

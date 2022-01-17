@@ -23,6 +23,10 @@ class TopMenu extends StatelessWidget {
             onPressed: canStop ? _handleStop : null,
             child: const Icon(Icons.stop_rounded),
           ),
+          TextButton(
+            onPressed: _handleVectors,
+            child: const Icon(Icons.transform),
+          ),
         ],
       ),
     );
@@ -31,4 +35,5 @@ class TopMenu extends StatelessWidget {
   void _handleStart() => app.startEngine();
   void _handlePause() => app.pauseEngine();
   void _handleStop() => app.stopEngine();
+  void _handleVectors() => app.toggleVectors();
 }
