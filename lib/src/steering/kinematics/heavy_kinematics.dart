@@ -42,7 +42,7 @@ class HeavyKinematics extends Kinematics {
     return HeavyKinematics(
       maxSpeed: _maxSpeed,
       maxAcceleration: _maxAcceleration,
-    ) ..setAcceleration(_acceleration);
+    )..setAcceleration(_acceleration);
   }
 
   /// Acceleration that will be applied to the owner on the next tick.
