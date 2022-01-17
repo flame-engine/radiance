@@ -40,10 +40,14 @@ abstract class Entity implements Steerable {
 
   Behavior? behavior;
 
+  Entity clone();
+
   void render(Canvas canvas);
 
   void update(double dt) {
     behavior?.update(dt);
     kinematics.update(dt);
   }
+
+  List<Vector2> get vectors;
 }

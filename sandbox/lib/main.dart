@@ -60,6 +60,8 @@ class SandboxState extends State<_MyApp> {
   /// preset selected, this will be `null`.
   int? currentPreset;
 
+  bool showVectors = false;
+
   late Scene currentScene;
 
   EngineState engineState = EngineState.running;
@@ -75,6 +77,13 @@ class SandboxState extends State<_MyApp> {
   void toggleGroup(int groupIndex) {
     setState(() {
       openGroups[groupIndex] = !openGroups[groupIndex];
+    });
+  }
+
+  void toggleVectors() {
+    setState(() {
+      showVectors = !showVectors;
+      currentScene.toggleVectors(showVectors);
     });
   }
 

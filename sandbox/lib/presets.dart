@@ -2,7 +2,7 @@ import 'package:radiance/steering.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 import 'entities/heavy_entity.dart';
-import 'entities/static_target_entity.dart';
+import 'entities/static_entity.dart';
 import 'scene.dart';
 
 class Presets {
@@ -28,7 +28,7 @@ class Presets {
 
   static Scene _seek1() {
     final p = Scene('Heavy');
-    final target = StaticTargetEntity(position: Vector2(60, 30));
+    final target = StaticEntity(position: Vector2(60, 30));
     final predator = HeavyEntity(
       position: Vector2(-40, -40),
       velocity: Vector2(-10, 10),
