@@ -6,11 +6,19 @@ import 'entities/vector_visual.dart';
 class Scene {
   Scene(this.name);
 
+  /// The name of the [Scene], shown in the left menu.
   final String name;
   final List<Entity> entities = [];
   final List<VectorVisual> vectors = [];
 
-  void add(Entity e) => entities.add(e);
+  void add(Entity e) {
+    e.saveState();
+    entities.add(e);
+  }
+
+  void addAll(Iterable<Entity> entities) {
+    entities.forEach(add);
+  }
 
   void update(double dt) {
     entities.forEach((e) => e.update(dt));
@@ -19,6 +27,10 @@ class Scene {
   void render(Canvas canvas) {
     entities.forEach((e) => e.render(canvas));
     vectors.forEach((v) => v.render(canvas));
+  }
+
+  void reset() {
+    entities.forEach((e) => e.restoreState());
   }
 
   void toggleVectors(bool on) {
