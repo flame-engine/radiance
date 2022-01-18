@@ -27,11 +27,6 @@ class StaticEntity extends Entity {
   late final Paint paint;
 
   @override
-  StaticEntity clone() {
-    return StaticEntity(position: position, size: size);
-  }
-
-  @override
   void render(Canvas canvas) {
     canvas.save();
     canvas.translate(position.x, position.y);

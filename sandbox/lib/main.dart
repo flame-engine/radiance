@@ -98,9 +98,7 @@ class SandboxState extends State<_MyApp> {
   void stopEngine() {
     setState(() {
       engineState = EngineState.stopped;
-      if (currentGroup != null && currentPreset != null) {
-        selectPreset(currentGroup!, currentPreset!);
-      }
+      currentScene.reset();
     });
   }
 

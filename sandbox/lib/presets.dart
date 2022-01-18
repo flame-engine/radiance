@@ -2,14 +2,15 @@ import 'package:radiance/steering.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 import 'entities/heavy_entity.dart';
+import 'entities/light_entity.dart';
 import 'entities/static_entity.dart';
 import 'scene.dart';
 
 class Presets {
   static final _presets = [
     _PresetGroup('Seek', [
-      // _PresetItem('Heavy', _seek1),
       _seek1(),
+      _seek2(),
     ]),
   ];
 
@@ -28,6 +29,20 @@ class Presets {
   //# region Individual presets
 
   static Scene _seek1() {
+    final p = Scene('Light');
+    final target = StaticEntity(position: Vector2(60, 30));
+    final predator = LightEntity(
+      position: Vector2(-40, -40),
+      velocity: Vector2(-10, 10),
+      maxSpeed: 25,
+    );
+    predator.behavior = Seek(owner: predator, point: target.position);
+    p.add(target);
+    p.add(predator);
+    return p;
+  }
+
+  static Scene _seek2() {
     final p = Scene('Heavy');
     final target = StaticEntity(position: Vector2(60, 30));
     final predator = HeavyEntity(

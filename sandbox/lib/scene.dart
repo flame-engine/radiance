@@ -9,13 +9,12 @@ class Scene {
   /// The name of the [Scene], shown in the left menu.
   final String name;
 
-  final List<Entity> _originalEntities = [];
-  List<Entity>? _runtimeEntities;
-  List<VectorVisual>? _runtimeVectors;
+  final List<Entity> entities = [];
+  final List<VectorVisual> vectors = [];
 
   void add(Entity e) {
-    _originalEntities.add(e);
-    _runtimeEntities = null;
+    e.saveState();
+    entities.add(e);
   }
 
   void update(double dt) {
@@ -25,6 +24,10 @@ class Scene {
   void render(Canvas canvas) {
     entities.forEach((e) => e.render(canvas));
     vectors.forEach((v) => v.render(canvas));
+  }
+
+  void reset() {
+    entities.forEach((e) => e.restoreState());
   }
 
   void toggleVectors(bool on) {
