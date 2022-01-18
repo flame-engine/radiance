@@ -8,7 +8,6 @@ class Scene {
 
   /// The name of the [Scene], shown in the left menu.
   final String name;
-
   final List<Entity> entities = [];
   final List<VectorVisual> vectors = [];
 
