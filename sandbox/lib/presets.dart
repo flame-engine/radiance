@@ -12,6 +12,10 @@ class Presets {
       _seek1(),
       _seek2(),
     ]),
+    _PresetGroup('Flee', [
+      _flee1(),
+      _flee2(),
+    ]),
   ];
 
   static int get numGroups => _presets.length;
@@ -57,6 +61,42 @@ class Presets {
     return p;
   }
 
+  static Scene _flee1() {
+    final p = Scene('Simple escape');
+    final target = StaticEntity(position: Vector2(40, 0));
+    final escapee = HeavyEntity(
+      position: Vector2(0, 0),
+      velocity: Vector2(20, 0),
+      maxSpeed: 20,
+      maxAcceleration: 10,
+    );
+    escapee.behavior = Flee(owner: escapee, targets: [target.position]);
+    p.add(target);
+    p.add(escapee);
+    return p;
+  }
+
+  static Scene _flee2() {
+    final p = Scene('Surrounded');
+    final targets = [
+      Vector2(40, 0),
+      Vector2(-40, 0),
+      Vector2(0, 40),
+      Vector2(0, -40),
+      Vector2(27, 27),
+      Vector2(27, -27),
+      Vector2(-27, -27),
+      Vector2(-27, 27),
+    ];
+    final escapee = LightEntity(position: Vector2(0.1, 0.3), maxSpeed: 20);
+    escapee.behavior = Flee(owner: escapee, targets: targets);
+    for (final target in targets) {
+      p.add(StaticEntity(position: target));
+    }
+    p.add(escapee);
+    return p;
+  }
+
   //# endregion
 }
 
@@ -65,13 +105,4 @@ class _PresetGroup {
 
   final String name;
   final List<Scene> items;
-}
-
-class _PresetItem {
-  const _PresetItem(this.name, this.maker);
-
-  final String name;
-  final Scene Function() maker;
-
-  Scene make() => maker();
 }

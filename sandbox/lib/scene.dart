@@ -17,6 +17,10 @@ class Scene {
     entities.add(e);
   }
 
+  void addAll(Iterable<Entity> entities) {
+    entities.forEach(add);
+  }
+
   void update(double dt) {
     entities.forEach((e) => e.update(dt));
   }
