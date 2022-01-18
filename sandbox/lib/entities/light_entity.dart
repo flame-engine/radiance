@@ -21,9 +21,10 @@ class LightEntity extends Entity {
     path = Path()
       ..moveTo(size * 0.5, 0)
       ..lineTo(0.25 * size, 0.13 * size)
-      ..arcToPoint(Offset(0.25 * size, -0.13 * size),
-          radius: Radius.elliptical(size * 0.4, size * 0.2),
-          largeArc: true,
+      ..arcToPoint(
+        Offset(0.25 * size, -0.13 * size),
+        radius: Radius.elliptical(size * 0.4, size * 0.2),
+        largeArc: true,
       )
       ..close();
     paint = Paint()..color = const Color(0xfffffcb8);

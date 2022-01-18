@@ -55,10 +55,10 @@ abstract class Entity implements Steerable {
   @mustCallSuper
   void saveState() {
     _savedState = _EntityState()
-        ..position.setFrom(position)
-        ..velocity.setFrom(velocity)
-        ..angle = angle
-        ..angularVelocity = angularVelocity;
+      ..position.setFrom(position)
+      ..velocity.setFrom(velocity)
+      ..angle = angle
+      ..angularVelocity = angularVelocity;
   }
 
   @mustCallSuper
