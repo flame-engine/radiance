@@ -17,16 +17,6 @@ void main() {
       expect(kinematics.acceleration, closeToVector(0, 0));
     });
 
-    test('clone', () {
-      final kinematics = HeavyKinematics(maxSpeed: 7, maxAcceleration: 11);
-      kinematics.setAcceleration(Vector2(2, -1));
-      final copy = kinematics.clone();
-      expect(copy, isA<HeavyKinematics>());
-      expect(copy.maxSpeed, 7);
-      expect(copy.maxAcceleration, 11);
-      expect(copy.acceleration, closeToVector(2, -1));
-    });
-
     test('maxSpeed', () {
       final kinematics = HeavyKinematics(maxSpeed: 5, maxAcceleration: 3);
       kinematics.maxSpeed = 1;

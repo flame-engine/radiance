@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:radiance/steering.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 import 'presets.dart';
 import 'scene.dart';
@@ -7,6 +11,9 @@ import 'widgets/scene_widget.dart';
 import 'widgets/top_menu.dart';
 
 void main() {
+  vectorToAngle = (Vector2 vector) => atan2(vector.y, vector.x);
+  angleToVector = (double angle) => Vector2(cos(angle), sin(angle));
+
   runApp(
     MaterialApp(
       title: 'Radiance sandbox',

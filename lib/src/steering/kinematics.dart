@@ -13,26 +13,23 @@ import 'steerable.dart';
 /// those steering controls to affect the motion of the owner.
 ///
 /// The main method of this class -- `update()` -- must be invoked by the user
-/// periodically, as time progresses, in order to confer motion to the [own]
+/// periodically, as time progresses, in order to confer motion to the [owner]
 /// steerable. For better results, this method should be invoked as frequently
 /// as possible.
 ///
 /// The method `handleAttach()` must be called by the user when the kinematics
 /// object is attached to a concrete [Steerable].
 abstract class Kinematics {
-  /// Returns a copy of this kinematics object, except for the [own] field.
-  Kinematics clone();
-
   /// Reference to the object being steered.
   ///
   /// This variable will be set within the `handleAttach()` method, and will
   /// always satisfy the constraint that `own.kinematics == this`.
-  late Steerable own;
+  late Steerable owner;
 
   /// This method must be invoked by the [parent] once, when this object is
   /// attached to the parent.
   @mustCallSuper
-  void handleAttach(Steerable parent) => own = parent;
+  void handleAttach(Steerable parent) => owner = parent;
 
   /// Invoked by the user to signal that time [dt] (in seconds) has passed
   /// within the system.
@@ -42,7 +39,7 @@ abstract class Kinematics {
   /// simulation.
   ///
   /// Within this method the implementation must advance the state of the object
-  /// and of the [own] steerable forward by [dt] seconds. The implementation
+  /// and of the [owner] steerable forward by [dt] seconds. The implementation
   /// may ignore any numeric effects that are `o(dt)`.
   void update(double dt);
 

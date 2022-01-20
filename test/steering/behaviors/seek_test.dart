@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:radiance/src/steering/behaviors/seek.dart';
-import 'package:radiance/src/steering/kinematics/heavy_kinematics.dart';
-import 'package:radiance/src/steering/kinematics/light_kinematics.dart';
+import 'package:radiance/steering.dart';
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math_64.dart';
 
@@ -12,7 +10,7 @@ import '../../utils/test_random.dart';
 
 void main() {
   group('Seek', () {
-    group(':MaxSpeedKinematics', () {
+    group(':LightKinematics', () {
       test('properties', () {
         final agent = SimpleSteerable(kinematics: LightKinematics(10));
         final behavior = Seek(owner: agent, point: Vector2(20, 50));
@@ -35,7 +33,7 @@ void main() {
         final target = Vector2.random(rng) * 100;
         final seeker = SimpleSteerable(
           velocity: Vector2.random() * maxSpeed,
-          position: origin,
+          position: origin.clone(),
           kinematics: LightKinematics(maxSpeed),
         );
         seeker.behavior = Seek(owner: seeker, point: target);
@@ -50,10 +48,11 @@ void main() {
           closeToVector(target.x, target.y, epsilon: 1e-5),
         );
         expect(seeker.velocity, closeToVector(0, 0));
+        expect(seeker.angle, closeTo(vectorToAngle(target - origin), 1e-10));
       });
     });
 
-    group(':MaxAccelerationKinematics', () {
+    group(':HeavyKinematics', () {
       test('properties', () {
         final agent = SimpleSteerable(
           kinematics: HeavyKinematics(
