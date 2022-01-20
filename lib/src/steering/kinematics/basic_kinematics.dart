@@ -5,12 +5,9 @@ import '../kinematics.dart';
 /// values.
 class BasicKinematics extends Kinematics {
   @override
-  BasicKinematics clone() => BasicKinematics();
-
-  @override
   void update(double dt) {
-    own.position.x += own.velocity.x * dt;
-    own.position.y += own.velocity.y * dt;
-    own.angle += own.angularVelocity * dt;
+    owner.position.x += owner.velocity.x * dt;
+    owner.position.y += owner.velocity.y * dt;
+    owner.angle += owner.angularVelocity * dt;
   }
 }

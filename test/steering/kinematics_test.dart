@@ -7,13 +7,6 @@ import '../utils/throws.dart';
 
 void main() {
   group('Kinematics', () {
-    test('clone', () {
-      final k1 = NonceKinematics();
-      final k2 = k1.clone();
-      expect(k2, isA<NonceKinematics>());
-      expect(k1 == k2, false);
-    });
-
     test('behavior factories', () {
       final agent = SimpleSteerable(kinematics: NonceKinematics());
 
@@ -35,9 +28,6 @@ void main() {
 }
 
 class NonceKinematics extends Kinematics {
-  @override
-  NonceKinematics clone() => NonceKinematics();
-
   @override
   void update(double dt) {}
 }

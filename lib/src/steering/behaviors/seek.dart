@@ -47,7 +47,11 @@ class SeekLight extends Seek {
     if (maxSpeed * dt > distance) {
       maxSpeed = distance / dt;
     }
-    kinematics.setVelocity(offset..scale(maxSpeed));
+    if (maxSpeed == 0) {
+      kinematics.stop();
+    } else {
+      kinematics.setVelocity(offset..scale(maxSpeed));
+    }
   }
 }
 

@@ -32,7 +32,7 @@ void main() {
     // containing Steerable object.
     test('kinematics.own', () {
       final Steerable steerable = SimpleSteerable();
-      expect(steerable.kinematics.own, steerable);
+      expect(steerable.kinematics.owner, steerable);
     });
   });
 }

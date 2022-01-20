@@ -37,14 +37,6 @@ class HeavyKinematics extends Kinematics {
     _maxAcceleration = value;
   }
 
-  @override
-  HeavyKinematics clone() {
-    return HeavyKinematics(
-      maxSpeed: _maxSpeed,
-      maxAcceleration: _maxAcceleration,
-    )..setAcceleration(_acceleration);
-  }
-
   /// Acceleration that will be applied to the owner on the next tick.
   Vector2 get acceleration => _acceleration;
   final Vector2 _acceleration;
@@ -58,19 +50,19 @@ class HeavyKinematics extends Kinematics {
 
   @override
   void update(double dt) {
-    own.position.addScaled(own.velocity, dt);
-    own.velocity.addScaled(_acceleration, dt);
-    final v = own.velocity.length;
+    owner.position.addScaled(owner.velocity, dt);
+    owner.velocity.addScaled(_acceleration, dt);
+    final v = owner.velocity.length;
     if (v > maxSpeed) {
-      own.velocity.scale(maxSpeed / v);
+      owner.velocity.scale(maxSpeed / v);
     }
   }
 
   @override
-  Seek seek(Vector2 point) => SeekHeavy(owner: own, point: point);
+  Seek seek(Vector2 point) => SeekHeavy(owner: owner, point: point);
 
   @override
   Flee flee(List<Vector2> targets) {
-    return FleeHeavy(owner: own, targets: targets);
+    return FleeHeavy(owner: owner, targets: targets);
   }
 }

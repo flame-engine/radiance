@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:radiance/src/steering/behaviors/flee.dart';
 import 'package:radiance/src/steering/behaviors/seek.dart';
 import 'package:radiance/steering.dart';
@@ -13,15 +15,6 @@ void main() {
     test('basic properties', () {
       final kinematics = LightKinematics(5);
       expect(kinematics.maxSpeed, 5);
-      kinematics.maxSpeed = 10;
-      expect(kinematics.maxSpeed, 10);
-    });
-
-    test('clone', () {
-      final kinematics = LightKinematics(23);
-      final copy = kinematics.clone();
-      expect(copy, isA<LightKinematics>());
-      expect(copy.maxSpeed, 23);
     });
 
     test('speed errors', () {
@@ -53,9 +46,12 @@ void main() {
         velocity: Vector2(3, 4),
         kinematics: kinematics,
       );
+      expect(agent.angle, 0);
       kinematics.setVelocity(Vector2(5, 8));
       expect(agent.velocity, closeToVector(5, 8));
+      expect(agent.angle, -atan(8 / 5));
       kinematics.setVelocity(Vector2(6, 8));
+      expect(agent.angle, -atan(8 / 6));
       kinematics.setVelocity(Vector2(6 + 1e-10, 8 + 1e-10));
       expect(agent.velocity, closeToVector(6 + 1e-10, 8 + 1e-10));
       expect(
@@ -78,6 +74,19 @@ void main() {
       expect(agent.velocity, closeToVector(6, 8));
       kinematics.setVelocitySafe(Vector2(12, -16));
       expect(agent.velocity, closeToVector(6, -8));
+      expect(agent.angle, atan(8 / 6));
+    });
+
+    test('changing maxSpeed reduces velocity', () {
+      final kinematics = LightKinematics(10);
+      final agent = SimpleSteerable(
+        velocity: Vector2(3, 4),
+        kinematics: kinematics,
+      );
+      expect(agent.velocity, closeToVector(3, 4));
+      kinematics.maxSpeed = 1;
+      expect(agent.velocity, closeToVector(0.6, 0.8));
+      expect(kinematics.maxSpeed, 1);
     });
 
     test('seek', () {
