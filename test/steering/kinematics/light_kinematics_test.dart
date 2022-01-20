@@ -49,9 +49,9 @@ void main() {
       expect(agent.angle, 0);
       kinematics.setVelocity(Vector2(5, 8));
       expect(agent.velocity, closeToVector(5, 8));
-      expect(agent.angle, -atan(8/5));
+      expect(agent.angle, -atan(8 / 5));
       kinematics.setVelocity(Vector2(6, 8));
-      expect(agent.angle, -atan(8/6));
+      expect(agent.angle, -atan(8 / 6));
       kinematics.setVelocity(Vector2(6 + 1e-10, 8 + 1e-10));
       expect(agent.velocity, closeToVector(6 + 1e-10, 8 + 1e-10));
       expect(
@@ -74,7 +74,7 @@ void main() {
       expect(agent.velocity, closeToVector(6, 8));
       kinematics.setVelocitySafe(Vector2(12, -16));
       expect(agent.velocity, closeToVector(6, -8));
-      expect(agent.angle, atan(8/6));
+      expect(agent.angle, atan(8 / 6));
     });
 
     test('changing maxSpeed reduces velocity', () {
