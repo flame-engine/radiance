@@ -16,6 +16,9 @@ class Presets {
       _flee1(),
       _flee2(),
     ]),
+    _PresetGroup('Seperate', [
+      _sepe1(),
+    ])
   ];
 
   static int get numGroups => _presets.length;
@@ -94,6 +97,28 @@ class Presets {
       p.add(StaticEntity(position: target));
     }
     p.add(escapee);
+    return p;
+  }
+
+    static Scene _sepe1() {
+    final p = Scene('Seperate');
+    final target = StaticEntity(position: Vector2(0, 0));
+    final escapee = HeavyEntity(
+      position: Vector2(-20, 0),
+      velocity: Vector2(15, 0),
+      maxSpeed: 20,
+      maxAcceleration: 10,
+    );
+    final escapee2 = HeavyEntity(
+      position: Vector2(20, 0),
+      velocity: Vector2(-15, 0),
+      maxSpeed: 20,
+      maxAcceleration: 10,
+    );
+    escapee.behavior = Flee(owner: escapee, targets: [target.position]);
+    escapee2.behavior = Flee(owner: escapee2, targets: [target.position]);
+    p.add(escapee);
+    p.add(escapee2);
     return p;
   }
 
