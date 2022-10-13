@@ -16,8 +16,8 @@ class Presets {
       _flee1(),
       _flee2(),
     ]),
-    _PresetGroup('Seperate', [
-      _sepe1(),
+    _PresetGroup('Separate', [
+      _separate1(),
     ])
   ];
 
@@ -100,8 +100,8 @@ class Presets {
     return p;
   }
 
-    static Scene _sepe1() {
-    final p = Scene('Seperate');
+    static Scene _separate1() {
+    final p = Scene('Separate');
     final target = StaticEntity(position: Vector2(0, 0));
     final escapee = HeavyEntity(
       position: Vector2(-20, 0),
